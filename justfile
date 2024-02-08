@@ -1,40 +1,33 @@
-# Like GNU `make`, but `just` rustier.
-# https://just.systems/man/en/chapter_19.html
-# run `just` from this directory to see available commands
+# just is a command runner, Justfile is very similar to Makefile, but simpler.
 
-# Default command when 'just' is run without arguments
 default:
   @just --list
 
-# Print nix flake inputs and outputs
-io:
-  nix flake metadata
-  nix flake show
+build:
+  nix build .#darwinConfigurations.Cedrics-MBP-2.system
 
-# Update nix flake
+switch: build
+  ./result/sw/bin/darwin-rebuild switch --flake .#Cedrics-MBP-2
+
 update:
   nix flake update
 
-# Lint nix files
-lint:
-  nix fmt
+history:
+  nix profile history --profile /nix/var/nix/profiles/system
 
-# Check nix flake
+gc:
+  # remove all generations older than 7 days
+  sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 7d
+
+  # garbage collect all unused nix store entries
+  sudo nix store gc --debug
+
 check:
   nix flake check
 
-# Manually enter dev shell
-dev:
-  nix develop
+fmt:
+  # format the nix files in this repo
+  nix fmt
 
-# Build nix flake
-build: lint check
-  nix build
-
-# Remove build output link (no garbage collection)
 clean:
-  rm -f ./result
-
-# Run nix flake to setup environment
-run: lint check
-  nix run
+  rm -rf result

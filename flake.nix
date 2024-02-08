@@ -1,70 +1,80 @@
 {
-  description = "A home-manager template providing useful tools & settings for Nix-based development";
+  description = "Nix for macOS configuration";
 
-  inputs = {
-    # Principle inputs (updated by `nix run .#update`)
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    nixos-flake.url = "github:srid/nixos-flake";
-
-    # see https://github.com/nix-systems/default/blob/main/default.nix
-    systems.url = "github:nix-systems/default";
+  # the nixConfig here only affects the flake itself, not the system configuration!
+  nixConfig = {
+    substituters = [
+      # Query the mirror of USTC first, and then the official cache.
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
+      "https://cache.nixos.org"
+    ];
   };
 
-  outputs = inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = import inputs.systems;
-      imports = [
-        inputs.nixos-flake.flakeModule
-      ];
+  # This is the standard format for flake.nix. `inputs` are the dependencies of the flake,
+  # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
+  inputs = {
+    # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
 
-      flake.templates.default = {
-        description = "A `home-manager` template providing useful tools & settings for Nix-based development";
-        path = builtins.path {
-          path = ./.;
-          filter = path: _: with inputs.nixpkgs.lib;
-            !(hasSuffix "LICENSE" path ||
-              hasSuffix "README.md" path ||
-              hasSuffix "flake.lock" path);
-        };
-      };
-
-      perSystem = { self', pkgs, ... }:
-        let
-          # TODO: Change username
-          myUserName = "runner";
-        in
-        {
-          legacyPackages.homeConfigurations.${myUserName} =
-            inputs.self.nixos-flake.lib.mkHomeConfiguration
-              pkgs
-              ({ pkgs, ... }: {
-                # Edit the contents of the ./home directory to install packages and modify dotfile configuration in your
-                # $HOME.
-                #
-                # https://nix-community.github.io/home-manager/index.html#sec-usage-configuration
-                imports = [ ./home ];
-                home.username = myUserName;
-                home.homeDirectory = "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/${myUserName}";
-                home.stateVersion = "22.11";
-              });
-
-          formatter = pkgs.nixpkgs-fmt;
-
-          # Enables 'nix run' to activate.
-          apps.default.program = self'.packages.activate-home;
-
-          # Enable 'nix build' to build the home configuration, but without
-          # activating.
-          packages.default = self'.legacyPackages.homeConfigurations.${myUserName}.activationPackage;
-
-          devShells.default = pkgs.mkShell {
-            name = "nix-dev-home";
-            nativeBuildInputs = with pkgs; [ just ];
-          };
-        };
+    # home-manager, used for managing user configuration
+    home-manager = {
+      url = "github:nix-community/home-manager/release-23.11";
+      # The `follows` keyword in inputs is used for inheritance.
+      # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
+      # to avoid problems caused by different versions of nixpkgs dependencies.
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
+
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+  };
+
+  # The `outputs` function will return all the build results of the flake.
+  # A flake can have many use cases and different types of outputs,
+  # parameters in `outputs` are defined in `inputs` and can be referenced by their names.
+  # However, `self` is an exception, this special parameter points to the `outputs` itself (self-reference)
+  # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    darwin,
+    home-manager,
+    ...
+  }: let
+    # TODO replace with your own username and system
+    username = "cedricmeukens";
+    useremail = "cedric.meukens@icloud.com";
+    system = "x86_64-darwin"; # aarch64-darwin or x86_64-darwin
+    hostname = "Cedrics-MBP-2";
+
+    specialArgs =
+      inputs
+      // {
+        inherit username useremail hostname;
+      };
+  in {
+    darwinConfigurations."${hostname}" = darwin.lib.darwinSystem {
+      inherit system specialArgs;
+      modules = [
+        ./modules/nix-core.nix
+        ./modules/system.nix
+        ./modules/apps.nix
+        ./modules/host-users.nix
+
+        # home manager
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = specialArgs;
+          home-manager.users.${username} = import ./home;
+        }
+      ];
+    };
+
+    # nix code formatter
+    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+  };
 }
