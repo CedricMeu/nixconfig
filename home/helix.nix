@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   programs.helix = {
     enable = true;
 
@@ -38,7 +36,7 @@
     ];
 
     settings = {
-      theme = "ayu_light";
+      theme = "catppuccin_macchiato";
 
       editor = {
         line-number = "relative";

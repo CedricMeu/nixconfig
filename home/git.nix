@@ -1,13 +1,12 @@
-{
-  lib,
-  useremail,
-  ...
+{ lib
+, useremail
+, ...
 }: {
   # `programs.git` will generate the config file: ~/.config/git/config
   # to make git use this config file, `~/.gitconfig` should not exist!
   #
   #    https://git-scm.com/docs/git-config#Documentation/git-config.txt---global
-  home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
+  home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
     rm -f ~/.gitconfig
   '';
 
@@ -27,6 +26,49 @@
       }
     ];
 
+    ignores = [
+      # Vim/Emacs
+      "*~"
+      ".*.swp"
+
+      # Mac
+      ".DS_Store"
+      ".fseventsd"
+      ".Spotlight-V100"
+      ".TemporaryItems"
+      ".Trashes"
+
+      # Helix
+      ".helix/"
+
+      # VSCode Workspace Folder
+      ".vscode/"
+
+      # Rust
+      "debug/"
+      "target/"
+
+      # Python
+      "*.pyc"
+      "*.egg"
+      "*.out"
+      "venv/"
+      "**/**/__pycache__/"
+
+      # Nix
+      "result"
+      "result-*"
+
+      # direnv
+      ".direnv"
+      ".envrc"
+
+      # NodeJS/Web dev
+      ".env/"
+      "node_modules"
+      ".sass-cache"
+    ];
+
     extraConfig = {
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
@@ -37,6 +79,9 @@
       enable = true;
       options = {
         features = "side-by-side";
+        navigate = true;
+        light = false;
+        syntax-theme = "catppuccin";
       };
     };
 

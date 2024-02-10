@@ -28,7 +28,8 @@ Your current nix-darwin configuration's structure should be as follows:
 │   └── starship.nix  # customize starship's dotfiles
 ├── Makefile    # a Makefile to simplify your nix-darwin workflow.
 ├── README.md
-├── modules     # a folder contains all your nix-darwin configuration files
+├── darwin      # a folder contains all your nix-darwin configuration files
+│   ├── default.nix
 │   ├── apps.nix        # contains all your homebrew & nix apps(both GUI & CLI)
 │   ├── host-users.nix  # defines your hostname & all your system users
 │   ├── nix-core.nix    # nix's core configuration, you can ignore it for now
