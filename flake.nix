@@ -5,7 +5,7 @@
   nixConfig = {
     substituters = [
       # Query the mirror of USTC first, and then the official cache.
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
+      # "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
     ];
   };
@@ -29,6 +29,11 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
+
+    forgit-git = {
+      url = "github:wfxr/forgit";
+      flake = false;
+    };
   };
 
   # The `outputs` function will return all the build results of the flake.
@@ -36,45 +41,57 @@
   # parameters in `outputs` are defined in `inputs` and can be referenced by their names.
   # However, `self` is an exception, this special parameter points to the `outputs` itself (self-reference)
   # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    darwin,
-    home-manager,
-    ...
-  }: let
-    # TODO replace with your own username and system
-    username = "cedricmeukens";
-    useremail = "cedric.meukens@icloud.com";
-    system = "x86_64-darwin"; # aarch64-darwin or x86_64-darwin
-    hostname = "Cedrics-MBP-2";
+  outputs =
+    inputs @ { self
+    , nixpkgs
+    , darwin
+    , home-manager
+    , ...
+    }:
+    let
+      username = "cedricmeukens";
+      useremail = "cedric.meukens@icloud.com";
 
-    specialArgs =
-      inputs
-      // {
-        inherit username useremail hostname;
+      specialArgs =
+        inputs
+        // {
+          inherit username useremail;
+        };
+
+      hm-input = {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = specialArgs;
+        home-manager.users.${username} = import ./home;
       };
-  in {
-    darwinConfigurations."${hostname}" = darwin.lib.darwinSystem {
-      inherit system specialArgs;
-      modules = [
-        ./modules/nix-core.nix
-        ./modules/system.nix
-        ./modules/apps.nix
-        ./modules/host-users.nix
+    in
+    {
+      darwinConfigurations = {
+        macbook-2015 = darwin.lib.darwinSystem {
+          inherit specialArgs;
+          system = "x86_64-darwin";
+          modules = [
+            ./hosts/common
+            ./hosts/macbook-2015
 
-        # home manager
-        home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = specialArgs;
-          home-manager.users.${username} = import ./home;
-        }
-      ];
+            # home manager
+            home-manager.darwinModules.home-manager
+            hm-input
+          ];
+        };
+
+        macbook-2017 = darwin.lib.darwinSystem {
+          inherit specialArgs;
+          system = "x86_64-darwin";
+          modules = [
+            ./hosts/common
+            ./hosts/macbook-2017
+
+            # home manager
+            home-manager.darwinModules.home-manager
+            hm-input
+          ];
+        };
+      };
     };
-
-    # nix code formatter
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
-  };
 }

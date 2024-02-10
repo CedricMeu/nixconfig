@@ -1,13 +1,14 @@
-{
-  username,
-  hostname,
-  ...
-} @ args:
+{ username
+, ...
+}:
 #############################################################
 #
 #  Host & Users configuration
 #
 #############################################################
+let
+  hostname = "macbook-2017";
+in
 {
   networking.hostName = hostname;
   networking.computerName = hostname;
@@ -19,5 +20,5 @@
     description = username;
   };
 
-  nix.settings.trusted-users = [username];
+  nix.settings.trusted-users = [ username ];
 }

@@ -3,11 +3,11 @@
 default:
   @just --list
 
-build:
-  nix build .#darwinConfigurations.Cedrics-MBP-2.system
+build name:
+  nix build .#darwinConfigurations.{{name}}.system --no-eval-cache
 
-switch: build
-  ./result/sw/bin/darwin-rebuild switch --flake .#Cedrics-MBP-2
+switch name: (build name)
+  ./result/sw/bin/darwin-rebuild switch --flake .#{{name}}
 
 update:
   nix flake update
