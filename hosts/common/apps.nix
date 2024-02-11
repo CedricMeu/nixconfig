@@ -18,7 +18,7 @@
   environment.systemPackages = with pkgs; [
     helix
     git
-    just # use Justfile to simplify nix-darwin's commands 
+    just
   ];
 
   # NOTE To make this work, homebrew need to be installed manually, see https://brew.sh
@@ -48,15 +48,21 @@
       "homebrew/cask-versions"
     ];
 
-    brews = [];
+    brews = [ ];
 
     casks = [
       "raycast" # (HotKey: alt/option + space)search, caculate and run scripts(with many plugins)
 
       "kitty"
+      "visual-studio-code"
+
       "languagetool"
+
       "logi-options-plus"
+
       "messenger"
+      "discord"
+
       "mochi"
       "obsidian"
       "rectangle"
