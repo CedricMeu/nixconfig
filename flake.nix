@@ -29,11 +29,6 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
-
-    forgit-git = {
-      url = "github:wfxr/forgit";
-      flake = false;
-    };
   };
 
   # The `outputs` function will return all the build results of the flake.

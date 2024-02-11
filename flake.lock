@@ -20,22 +20,6 @@
         "type": "github"
       }
     },
-    "forgit-git": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1707513442,
-        "narHash": "sha256-Xe1tv4ZzRoVytizhqKQwOydQ9I0dqeNnIu9szH4zA4w=",
-        "owner": "wfxr",
-        "repo": "forgit",
-        "rev": "00ed721ece5156aab7795ae885593f9f8582b0cc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "wfxr",
-        "repo": "forgit",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -90,7 +74,6 @@
     "root": {
       "inputs": {
         "darwin": "darwin",
-        "forgit-git": "forgit-git",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-darwin": "nixpkgs-darwin"
