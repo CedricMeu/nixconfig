@@ -2,10 +2,6 @@
   programs.vscode = {
     enable = true;
 
-    enableUpdateCheck = false;
-
-    enableExtensionUpdateCheck = false;
-
     extensions =
       with pkgs.vscode-extensions; [
         catppuccin.catppuccin-vsc
