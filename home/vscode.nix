@@ -2,10 +2,18 @@
   programs.vscode = {
     enable = true;
 
+    enableUpdateCheck = false;
+
+    enableExtensionUpdateCheck = false;
+
     extensions =
-      with pkgs; [
-        vscode-extensions.catppuccin.catppuccin-vsc
-        vscode-extensions.catppuccin.catppuccin-vsc-icons
+      with pkgs.vscode-extensions; [
+        catppuccin.catppuccin-vsc
+        catppuccin.catppuccin-vsc-icons
+        mkhl.direnv
+
+        ms-python.python
+        ms-toolsai.jupyter
       ];
 
     userSettings =
