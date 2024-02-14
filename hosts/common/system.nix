@@ -123,6 +123,9 @@
         "com.apple.AdLib" = {
           allowApplePersonalizedAdvertising = false;
         };
+        "com.apple.controlcenter" = {
+          BatteryShowPercentage = true;
+        };
         # Prevent Photos from opening automatically when devices are plugged in
         "com.apple.ImageCapture".disableHotPlug = true;
       };

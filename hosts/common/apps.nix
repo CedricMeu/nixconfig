@@ -18,7 +18,6 @@
   environment.systemPackages = with pkgs; [
     helix
     git
-    just
   ];
 
   # NOTE To make this work, homebrew need to be installed manually, see https://brew.sh
@@ -72,6 +71,7 @@
       "microsoft-excel"
       "microsoft-powerpoint"
       "microsoft-word"
+      "microsoft-teams"
 
       "ultimaker-cura"
     ];
