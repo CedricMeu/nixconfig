@@ -97,7 +97,9 @@
             pkgs.mkShell {
               name = "nixconfig";
               nativeBuildInputs = with pkgs;
-                [ just ];
+                [
+                  just
+                ];
             };
         };
       }
