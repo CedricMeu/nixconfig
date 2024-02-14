@@ -1,17 +1,4 @@
-{ pkgs, ... }:
-
-###################################################################################
-#
-#  macOS's System configuration
-#
-#  All the configuration options are documented here:
-#    https://daiderd.com/nix-darwin/manual/index.html#sec-options
-#  Incomplete list of macOS `defaults` commands :
-#    https://github.com/yannbertrand/macos-defaults
-#
-###################################################################################
-{
-
+{ ... }: {
   system = {
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
     activationScripts.postUserActivation.text = ''
@@ -156,47 +143,4 @@
 
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
-
-  # Create /etc/zshrc that loads the nix-darwin environment.
-  # this is required if you want to use darwin's default shell - zsh
-  programs.zsh.enable = true;
-  environment.shells = [
-    pkgs.zsh
-  ];
-
-  # Set your time zone.
-  # comment this due to the issue:
-  #   https://github.com/LnL7/nix-darwin/issues/359
-  # time.timeZone = "Asia/shanghai";
-
-  # Fonts
-  fonts = {
-    # will be removed after this PR is merged:
-    #   https://github.com/LnL7/nix-darwin/pull/754
-    fontDir.enable = true;
-
-    # will change to `fonts.packages` after this PR is merged:
-    #   https://github.com/LnL7/nix-darwin/pull/754
-    fonts = with pkgs; [
-      # packages = with pkgs; [
-      # icon fonts
-      material-design-icons
-      font-awesome
-
-      # nerdfonts
-      # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/data/fonts/nerdfonts/shas.nix
-      (nerdfonts.override {
-        fonts = [
-          # symbols icon only
-          "NerdFontsSymbolsOnly"
-          # Characters
-          "FiraCode"
-          "JetBrainsMono"
-          "Iosevka"
-          "Monoid"
-          "CascadiaCode"
-        ];
-      })
-    ];
-  };
 }

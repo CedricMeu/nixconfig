@@ -14,48 +14,33 @@
   # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     darwin = {
       url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
   };
 
   outputs =
     inputs @ { self
     , nixpkgs
+    , nixpkgs-darwin
     , flake-parts
     , home-manager
     , darwin
-    , ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } (
       let
         username = "cedricmeukens";
         useremail = "cedric.meukens@icloud.com";
-
-        specialArgs =
-          inputs
-          // {
-            inherit username useremail;
-          };
-
-        hm-input = {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = specialArgs;
-          home-manager.users.${username} = import ./home;
-        };
       in
       {
         systems = [
@@ -63,37 +48,21 @@
         ];
 
         flake = {
-          darwinConfigurations = {
-            macbook-2015 = darwin.lib.darwinSystem {
-              inherit specialArgs;
-              system = "x86_64-darwin";
-              modules = [
-                ./hosts/common
-                ./hosts/macbook-2015
-
-                # home manager
-                home-manager.darwinModules.home-manager
-                hm-input
-              ];
-            };
-
-            macbook-2017 = darwin.lib.darwinSystem {
-              inherit specialArgs;
-              system = "x86_64-darwin";
-              modules = [
-                ./hosts/common
-                ./hosts/macbook-2017
-
-                # home manager
-                home-manager.darwinModules.home-manager
-                hm-input
-              ];
-            };
-          };
+          darwinConfigurations = (
+            import ./hosts/macbook-2015
+              {
+                inherit inputs nixpkgs home-manager darwin username useremail;
+              }
+            //
+            import ./hosts/macbook-2017
+              {
+                inherit inputs nixpkgs home-manager darwin username useremail;
+              }
+          );
         };
 
         perSystem = { pkgs, system, ... }: {
-          devShells.default =
+          devShells. default =
             pkgs.mkShell {
               name = "nixconfig";
               nativeBuildInputs = with pkgs;
@@ -101,6 +70,8 @@
                   just
                 ];
             };
+
+          formatter = pkgs.nixpkgs-fmt;
         };
       }
     );

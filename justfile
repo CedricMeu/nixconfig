@@ -2,15 +2,11 @@
 
 host := "$(hostname)"
 
-
-check:
-  nix flake check
-
-build:
-  nix build .#darwinConfigurations.{{host}}.system --no-eval-cache
-
 switch: build
   ./result/sw/bin/darwin-rebuild switch --flake .#{{host}}
+
+build: check fmt
+  nix build .#darwinConfigurations.{{host}}.system --no-eval-cache
 
 update:
   nix flake update
@@ -24,6 +20,9 @@ gc:
 
   # garbage collect all unused nix store entries
   sudo nix store gc --debug
+
+check:
+  nix flake check
 
 fmt:
   # format the nix files in this repo
