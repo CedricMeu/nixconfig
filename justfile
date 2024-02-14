@@ -1,13 +1,16 @@
 # just is a command runner, Justfile is very similar to Makefile, but simpler.
 
-default:
-  @just --list
+host := "$(hostname)"
 
-build name:
-  nix build .#darwinConfigurations.{{name}}.system --no-eval-cache
 
-switch name: (build name)
-  ./result/sw/bin/darwin-rebuild switch --flake .#{{name}}
+check:
+  nix flake check
+
+build:
+  nix build .#darwinConfigurations.{{host}}.system --no-eval-cache
+
+switch: build
+  ./result/sw/bin/darwin-rebuild switch --flake .#{{host}}
 
 update:
   nix flake update
@@ -21,9 +24,6 @@ gc:
 
   # garbage collect all unused nix store entries
   sudo nix store gc --debug
-
-check:
-  nix flake check
 
 fmt:
   # format the nix files in this repo

@@ -15,12 +15,13 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
 
-    # home-manager, used for managing user configuration
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
-      # The `follows` keyword in inputs is used for inheritance.
-      # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
-      # to avoid problems caused by different versions of nixpkgs dependencies.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -30,72 +31,75 @@
     };
   };
 
-  # The `outputs` function will return all the build results of the flake.
-  # A flake can have many use cases and different types of outputs,
-  # parameters in `outputs` are defined in `inputs` and can be referenced by their names.
-  # However, `self` is an exception, this special parameter points to the `outputs` itself (self-reference)
-  # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
   outputs =
     inputs @ { self
     , nixpkgs
+    , flake-parts
     , home-manager
     , darwin
     , ...
     }:
-    let
-      username = "cedricmeukens";
-      useremail = "cedric.meukens@icloud.com";
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      let
+        username = "cedricmeukens";
+        useremail = "cedric.meukens@icloud.com";
 
-      specialArgs =
-        inputs
-        // {
-          inherit username useremail;
-        };
-
-      hm-input = {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = specialArgs;
-        home-manager.users.${username} = import ./home;
-      };
-    in
-    {
-      darwinConfigurations = {
-        macbook-2015 = darwin.lib.darwinSystem {
-          inherit specialArgs;
-          system = "x86_64-darwin";
-          modules = [
-            ./hosts/common
-            ./hosts/macbook-2015
-
-            # home manager
-            home-manager.darwinModules.home-manager
-            hm-input
-          ];
-        };
-
-        macbook-2017 = darwin.lib.darwinSystem {
-          inherit specialArgs;
-          system = "x86_64-darwin";
-          modules = [
-            ./hosts/common
-            ./hosts/macbook-2017
-
-            # home manager
-            home-manager.darwinModules.home-manager
-            hm-input
-          ];
-        };
-      };
-
-      devShells."x86_64-darwin".default =
-        let
-          pkgs = import nixpkgs {
-            system = "x86_64-darwin";
+        specialArgs =
+          inputs
+          // {
+            inherit username useremail;
           };
-        in
-        pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [ just ];
+
+        hm-input = {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = specialArgs;
+          home-manager.users.${username} = import ./home;
         };
-    };
+      in
+      {
+        systems = [
+          "x86_64-darwin"
+        ];
+
+        flake = {
+          darwinConfigurations = {
+            macbook-2015 = darwin.lib.darwinSystem {
+              inherit specialArgs;
+              system = "x86_64-darwin";
+              modules = [
+                ./hosts/common
+                ./hosts/macbook-2015
+
+                # home manager
+                home-manager.darwinModules.home-manager
+                hm-input
+              ];
+            };
+
+            macbook-2017 = darwin.lib.darwinSystem {
+              inherit specialArgs;
+              system = "x86_64-darwin";
+              modules = [
+                ./hosts/common
+                ./hosts/macbook-2017
+
+                # home manager
+                home-manager.darwinModules.home-manager
+                hm-input
+              ];
+            };
+          };
+        };
+
+        perSystem = { pkgs, system, ... }: {
+          devShells.default =
+            pkgs.mkShell {
+              name = "nixconfig";
+              nativeBuildInputs = with pkgs;
+                [ just ];
+            };
+        };
+      }
+    );
 }
