@@ -1,24 +1,34 @@
-{ username
+{ inputs
+, home-manager
+, darwin
+, username
+, useremail
 , ...
 }:
-#############################################################
-#
-#  Host & Users configuration
-#
-#############################################################
 let
+  system = "x86_64-darwin";
   hostname = "macbook-2017";
+
+  specialArgs = inputs // {
+    inherit username useremail hostname;
+  };
 in
 {
-  networking.hostName = hostname;
-  networking.computerName = hostname;
-  system.defaults.smb.NetBIOSName = hostname;
+  "${hostname}" = darwin.lib.darwinSystem
+    {
+      inherit system specialArgs;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."${username}" = {
-    home = "/Users/${username}";
-    description = username;
-  };
+      modules = [
+        ../../common
+        ../../darwin
 
-  nix.settings.trusted-users = [ username ];
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = specialArgs;
+          home-manager.users.${username} = import ../../home;
+        }
+      ];
+    };
 }
