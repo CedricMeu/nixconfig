@@ -31,16 +31,16 @@
 │  └── macbook-2017
 │     └── default.nix
 ├── justfile
-├── README.md
+└── README.md
 ```
 
-`./common` holds configuration that might be shared between darwin and other OSes.
+- `./common` holds configuration that might be shared between darwin and other OSes.
 
-`./darwin` holds configuration that is specific to darwin.
+- `./darwin` holds configuration that is specific to darwin.
 
-`./home` holds home-manager configuration (dotfiles).
+- `./home` holds home-manager configuration (dotfiles).
 
-`./hosts` holds a configuration for each host. This configuration points towards `./home`, `./common`, and `./darwin` if that host happens to be on MacOS.
+- `./hosts` holds a configuration for each host. This configuration points towards `./home`, `./common`, and `./darwin` if that host happens to be on MacOS.
 
 ## Setup
 
