@@ -3,6 +3,8 @@
   homebrew = {
     enable = true;
 
+    global.brewfile = true;
+
     onActivation = {
       autoUpdate = true;
       cleanup = "zap";
@@ -10,6 +12,7 @@
 
     masApps = {
       Xcode = 497799835;
+      Pages = 409201541;
     };
 
     taps = [

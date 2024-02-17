@@ -14,7 +14,8 @@
   # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-darwin.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
@@ -27,15 +28,22 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
+
+    tree-sitter-typst = {
+      url = "github:frozolotl/tree-sitter-typst";
+      flake = false;
+    };
   };
 
   outputs =
     inputs @ { self
     , nixpkgs
-    , nixpkgs-darwin
+    , nixpkgs-unstable
     , flake-parts
     , home-manager
     , darwin
+    , tree-sitter-typst
+    , ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } (
       let
@@ -51,18 +59,18 @@
           darwinConfigurations = (
             import ./hosts/macbook-2015
               {
-                inherit inputs nixpkgs home-manager darwin username useremail;
+                inherit inputs nixpkgs nixpkgs-unstable home-manager darwin username useremail tree-sitter-typst;
               }
             //
             import ./hosts/macbook-2017
               {
-                inherit inputs nixpkgs home-manager darwin username useremail;
+                inherit inputs nixpkgs nixpkgs-unstable home-manager darwin username useremail tree-sitter-typst;
               }
           );
         };
 
-        perSystem = { pkgs, system, ... }: {
-          devShells. default =
+        perSystem = { pkgs, ... }: {
+          devShells.default =
             pkgs.mkShell {
               name = "nixconfig";
               nativeBuildInputs = with pkgs;
