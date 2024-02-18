@@ -80,5 +80,7 @@
     ls = "eza --icons=always --group-directories-first";
     ll = "ls -l";
     lt = "ls --tree";
+    tp = "termpdf.py";
+    j = "just";
   };
 }

@@ -37,5 +37,11 @@ in
     dprint
     nixpkgs-fmt
     typstfmt
+
+    # terminal pdfreader
+    termpdfpy
+
+    # Build tools
+    just
   ];
 }
