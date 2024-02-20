@@ -13,7 +13,6 @@
     masApps = {
       Xcode = 497799835;
       Pages = 409201541;
-      "Digital Pets " = 6450492314;
     };
 
     taps = [
