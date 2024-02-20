@@ -30,3 +30,6 @@ fmt:
 
 clean:
   rm -rf result
+
+upgrade: && switch
+  git pull
