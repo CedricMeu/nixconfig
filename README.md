@@ -47,9 +47,9 @@
 1. Install nix using the [determinate nix installer](https://github.com/DeterminateSystems/nix-installer).
 2. Install [homebrew](https://brew.sh).
 3. Alter `username` and `useremail` in `flake.nix`, and describe your host under `hosts/`
-4. Install this flake `nix develop -c just`.
+4. Install this flake `nix develop --extra-experimental-features nix-command --extra-experimental-features flakes -c just`.
 5. Restart your terminal
-6. In this repo, run `direnv allow` once.
+7. In this repo, run `echo "use flake" > .envrc` and then `direnv allow` once.
 
 From here on the devshell should be automatically loaded when entering the folder.
 Here you can use `just` to interact with the flake.
