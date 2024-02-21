@@ -6,7 +6,7 @@ switch: build
   ./result/sw/bin/darwin-rebuild switch --flake .#{{host}}
 
 build: check fmt
-  nix build .#darwinConfigurations.{{host}}.system --no-eval-cache
+  nix build .#darwinConfigurations.{{host}}.system --no-eval-cache --extra-experimental-features nix-command --extra-experimental-features flakes
 
 update:
   nix flake update
@@ -22,11 +22,11 @@ gc:
   sudo nix store gc --debug
 
 check:
-  nix flake check
+  nix flake check --extra-experimental-features nix-command --extra-experimental-features flakes
 
 fmt:
   # format the nix files in this repo
-  nix fmt
+  nix fmt --extra-experimental-features nix-command --extra-experimental-features flakes
 
 clean:
   rm -rf result
