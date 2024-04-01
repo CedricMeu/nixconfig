@@ -21,7 +21,13 @@
       "homebrew/cask-versions"
     ];
 
-    brews = [ ];
+    brews = [
+      "gstreamer"
+      "gst-plugins-base"
+      "gst-plugins-good"
+      "gst-plugins-bad"
+      "helix"
+    ];
 
     casks = [
       "raycast"
@@ -48,6 +54,15 @@
       "microsoft-teams"
 
       "ultimaker-cura"
+
+      "docker"
+
+      "vlc"
+
+      "ghidra"
+      "wireshark"
+
+      "bruno"
     ];
   };
 }

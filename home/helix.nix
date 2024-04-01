@@ -11,7 +11,7 @@
     defaultEditor = true;
 
     settings = {
-      theme = "catppuccin_macchiato";
+      theme = "catppuccin_latte";
 
       editor = {
         line-number = "relative";
@@ -116,11 +116,68 @@
 
         ruff.command = "ruff-lsp";
 
-        typst.command = "typst-lsp";
+        typst = {
+          command = "typst-lsp";
+          config = {
+            exportPdf = "never";
+          };
+        };
 
-        clangd.command = "clangd";
+        clangd.command = "/usr/bin/clangd";
 
         ltex.command = "ltex-ls";
+
+        eslint = {
+          command = "vscode-eslint-language-server";
+          args = [ "--stdio" ];
+          config = {
+            validate = "on";
+            experimental = {
+              useFlatConfig = false;
+            };
+            rulesCustomizations = [ ];
+            run = "onType";
+            problems = {
+              shortenToSingleLine = false;
+            };
+            nodePath = "";
+            codeAction = {
+              disableRuleComment = {
+                enable = true;
+                locaton = "separateLine";
+              };
+              showDocumentation.enable = true;
+            };
+            workingDirectory.mode = "location";
+            codeActionOnSave = {
+              enable = true;
+              mode = "fixAll";
+            };
+          };
+        };
+
+        emmet-ls = {
+          command = "emmet-ls";
+          args = [ "--stdio" ];
+        };
+
+        tailwindcss-svelte = {
+          language-id = "svelte";
+          command = "tailwindcss-language-server";
+          args = [ "--stdio" ];
+        };
+
+        tailwindcss-css = {
+          language-id = "css";
+          command = "tailwindcss-language-server";
+          args = [ "--stdio" ];
+        };
+
+        tailwindcss-html = {
+          language-id = "html";
+          command = "tailwindcss-language-server";
+          args = [ "--stdio" ];
+        };
       };
 
       language = [
@@ -199,6 +256,64 @@
             args = [ "fmt" "--stdin" "md" ];
           };
           language-servers = [ "marksman" "ltex" ];
+        }
+        {
+          name = "svelte";
+          auto-format = true;
+          formatter = { command = "prettier"; args = [ "--parser" "svelte" ]; };
+          language-servers = [
+            {
+              name = "svelteserver";
+              except-features = [ "format" ];
+            }
+            "eslint"
+            "emmet-ls"
+            "tailwindcss-svelte"
+          ];
+        }
+        {
+          name = "typescript";
+          auto-format = true;
+          formatter = { command = "prettier"; args = [ "--parser" "typescript" ]; };
+          language-servers = [
+            {
+              name = "typescript-language-server";
+              except-features = [ "format" ];
+            }
+            "eslint"
+          ];
+        }
+        {
+          name = "html";
+          auto-format = true;
+          formatter = { command = "prettier"; args = [ "--parser" "html" ]; };
+          language-servers = [
+            {
+              name = "vscode-html-language-server";
+              except-features = [ "format" ];
+            }
+            "eslint"
+            "emmet-ls"
+            "tailwindcss-html"
+          ];
+        }
+        {
+          name = "json";
+          auto-format = true;
+          formatter = { command = "prettier"; args = [ "--parser" "json" ]; };
+          language-servers = [
+            {
+              name = "vscode-json-language-server";
+              except-features = [ "format" ];
+            }
+            "eslint"
+          ];
+        }
+        {
+          name = "css";
+          auto-format = true;
+          file-types = [ "css" "postcss" ];
+          language-servers = [ "tailwindcss-css" "vscode-css-language-server" ];
         }
       ];
     };

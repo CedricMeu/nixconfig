@@ -10,6 +10,7 @@
     ./helix.nix
     ./kitty.nix
     ./vscode.nix
+    ./cargo.nix
   ];
 
   # Home Manager needs a bit of information about you and the
