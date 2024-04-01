@@ -17,6 +17,8 @@
 ├── flake.lock
 ├── flake.nix
 ├── home
+│  ├── cargo.nix
+│  ├── cargo.toml
 │  ├── core.nix
 │  ├── default.nix
 │  ├── git.nix
@@ -32,20 +34,21 @@
 │     └── default.nix
 ├── justfile
 └── README.md
+
 ```
 
-- `./common` holds configuration that might be shared between darwin and other OSes.
+- `./common` holds configuration that might be shared between Darwin and other OSes.
 
-- `./darwin` holds configuration that is specific to darwin.
+- `./darwin` holds configuration that is specific to Darwin.
 
 - `./home` holds home-manager configuration (dotfiles).
 
-- `./hosts` holds a configuration for each host. This configuration points towards `./home`, `./common`, and `./darwin` if that host happens to be on MacOS.
+- `./hosts` holds a configuration for each host. This configuration points towards `./home`, `./common`, and `./darwin` if that host happens to be on macOS.
 
 ## Setup
 
 1. Install nix using the [determinate nix installer](https://github.com/DeterminateSystems/nix-installer).
-2. Install [homebrew](https://brew.sh).
+2. Install [Homebrew](https://brew.sh).
 3. Alter `username` and `useremail` in `flake.nix`, and describe your host under `hosts/`
 4. Install this flake `nix develop --extra-experimental-features nix-command --extra-experimental-features flakes -c just`.
 5. Restart your terminal

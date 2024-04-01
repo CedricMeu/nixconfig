@@ -4,11 +4,11 @@
 
     shellIntegration.enableZshIntegration = true;
 
-    theme = "Catppuccin-Macchiato";
+    theme = "Catppuccin-Latte";
 
     font = {
-      name = "Monoid Nerd Font Mono";
-      size = 10;
+      name = "JetBrainsMono Nerd Font Mono";
+      size = 12;
     };
 
     settings = {

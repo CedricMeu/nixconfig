@@ -6,9 +6,6 @@ in
   environment.systemPackages = with pkgs; [
     git
 
-    # editors
-    helix
-
     # lsps
     nodePackages.bash-language-server
     lua-language-server
@@ -27,10 +24,14 @@ in
     nodePackages.typescript-language-server
     vscode-langservers-extracted
 
-    rust-analyzer
-
     texlab
     ltex-ls
+
+    nodePackages.svelte-language-server
+    nodePackages.prettier
+    nodePackages.vscode-langservers-extracted
+    emmet-ls
+    tailwindcss-language-server
 
     # formatters
     black
@@ -43,5 +44,15 @@ in
 
     # Build tools
     just
+
+    # rust stuff
+    rustup
+
+    # Misc
+    graphviz
+    gh
+
+    # Java
+    jdk
   ];
 }
