@@ -1,12 +1,43 @@
-{ config, tree-sitter-typst, ... }: {
-  home.file."${config.home.homeDirectory}/.config/helix/runtime/queries/typst" =
-    {
-      source = "${tree-sitter-typst}/queries/typst";
-      recursive = true;
-    };
-
+{ pkgs, ... }:
+{
   programs.helix = {
     enable = true;
+
+    extraPackages = with pkgs; [
+      # lsps
+      nodePackages.bash-language-server
+      # lua-language-server
+
+      marksman
+
+      pyright
+      python311Packages.python-lsp-server
+      poetry
+
+      taplo
+
+      nil
+
+      typst-lsp
+
+      nodePackages.typescript-language-server
+      vscode-langservers-extracted
+
+      texlab
+      ltex-ls
+
+      nodePackages.svelte-language-server
+      nodePackages.prettier
+      nodePackages.vscode-langservers-extracted
+      emmet-ls
+      tailwindcss-language-server
+
+      # formatters
+      black
+      dprint
+      nixpkgs-fmt
+      typstfmt
+    ];
 
     defaultEditor = true;
 
@@ -96,16 +127,6 @@
     };
 
     languages = {
-      grammar = [
-        {
-          name = "typst";
-          source = {
-            git = "https://github.com/frozolotl/tree-sitter-typst";
-            rev = "4b935442f19cfdee7fd74800ed55a0f457f281a2";
-          };
-        }
-      ];
-
       language-server = {
         pylsp.command = "pylsp";
 
@@ -125,7 +146,9 @@
 
         clangd.command = "/usr/bin/clangd";
 
-        ltex.command = "ltex-ls";
+        ltex = {
+          command = "ltex-ls";
+        };
 
         eslint = {
           command = "vscode-eslint-language-server";
@@ -219,26 +242,14 @@
         }
         {
           name = "typst";
-          scope = "source.typst";
           auto-format = true;
-          injection-regex = "typst";
-          file-types = [ "typ" "typst" ];
-          comment-token = "//";
+          roots = [ "typst.toml" ];
           indent = {
             tab-width = 2;
             unit = "  ";
           };
-          auto-pairs = {
-            "(" = ")";
-            "{" = "}";
-            "[" = "]";
-            "\"" = "\"";
-            "`" = "`";
-            "$" = "$";
-          };
-          roots = [ "typst.toml" ];
           formatter = {
-            command = "typst-fmt";
+            command = "typstfmt";
             args = [ "/dev/stdin" "-o" "/dev/stdout" ];
           };
           language-servers = [ "typst" "ltex" ];

@@ -1,21 +1,27 @@
 { pkgs, ... }: {
   programs = {
-    direnv =
-      {
-        enable = true;
-        enableZshIntegration = true;
-        nix-direnv.enable = true;
-      };
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
 
-    zoxide =
-      {
-        enable = true;
-        enableZshIntegration = true;
-      };
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
 
     fzf = {
       enable = true;
       enableZshIntegration = true;
+    };
+
+    zellij = {
+      enable = true;
+      # enableZshIntegration = true;
+      settings = {
+        theme = "catppuccin-latte";
+      };
     };
 
     zsh = {
@@ -83,4 +89,9 @@
     tp = "termpdf.py";
     j = "just";
   };
+
+  home.sessionPath = [
+    "$(brew --prefix)/opt/llvm/bin"
+    # "$HOME/.cargo/bin"
+  ];
 }

@@ -21,6 +21,10 @@
     };
 
     keybindings = {
+      # "kitty_mod+enter" = "no_op";
+      # "cmd+enter" = "no_op";
+      # "kitty_mod+t" = "no_op";
+      # "cmd+t" = "no_op";
       "kitty_mod+enter" = "new_window_with_cwd";
       "cmd+enter" = "new_window_with_cwd";
     };
