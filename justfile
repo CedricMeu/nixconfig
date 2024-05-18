@@ -5,8 +5,8 @@ host := "$(hostname)"
 switch: build
   ./result/sw/bin/darwin-rebuild switch --flake .#{{host}}
 
-build: check fmt
-  nix build .#darwinConfigurations.{{host}}.system --no-eval-cache --extra-experimental-features nix-command --extra-experimental-features flakes
+build: check fmt 
+  nix build .#darwinConfigurations.{{host}}.system --extra-experimental-features nix-command --extra-experimental-features flakes 
 
 update:
   nix flake update

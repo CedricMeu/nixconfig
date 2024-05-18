@@ -9,6 +9,7 @@
     ./starship.nix
     ./helix.nix
     ./kitty.nix
+    ./alacritty.nix
     ./vscode.nix
     ./cargo.nix
   ];

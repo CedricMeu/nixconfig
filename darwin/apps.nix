@@ -19,20 +19,17 @@
       "homebrew/cask-fonts"
       "homebrew/services"
       "homebrew/cask-versions"
-    ];
-
-    brews = [
-      "gstreamer"
-      "gst-plugins-base"
-      "gst-plugins-good"
-      "gst-plugins-bad"
-      "helix"
+      # {
+      #   name = "popcorn-official/popcorn-desktop";
+      #   clone_target = "https://github.com/popcorn-official/popcorn-desktop.git";
+      # }
     ];
 
     casks = [
       "raycast"
 
       "kitty"
+      "alacritty"
       "visual-studio-code"
 
       "languagetool"
@@ -63,6 +60,12 @@
       "wireshark"
 
       "bruno"
+
+      "cloudflare-warp"
+
+      "darktable"
+
+      # "popcorn-time"
     ];
   };
 }

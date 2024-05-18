@@ -19,9 +19,6 @@ in
       inherit system specialArgs;
 
       modules = [
-        ../../common
-        ../../darwin
-
         home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
@@ -29,6 +26,9 @@ in
           home-manager.extraSpecialArgs = specialArgs;
           home-manager.users.${username} = import ../../home;
         }
+
+        ../../common
+        ../../darwin
       ];
     };
 }
