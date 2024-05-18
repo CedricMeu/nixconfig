@@ -1,12 +1,14 @@
-# just is a command runner, Justfile is very similar to Makefile, but simpler.
+switch: check fmt
+  darwin-rebuild switch --flake .
 
-host := "$(hostname)"
+build: check fmt
+  darwin-rebuild build --flake .
 
-switch: build
-  ./result/sw/bin/darwin-rebuild switch --flake .#{{host}}
+rollback:
+  darwin-rebuild --rollback
 
-build: check fmt 
-  nix build .#darwinConfigurations.{{host}}.system --extra-experimental-features nix-command --extra-experimental-features flakes 
+# setup: check fmt 
+#   nix build .#darwinConfigurations.{{host}}.system --extra-experimental-features nix-command --extra-experimental-features flakes 
 
 update:
   nix flake update
@@ -15,11 +17,8 @@ history:
   nix profile history --profile /nix/var/nix/profiles/system
 
 gc:
-  # remove all generations older than 7 days
-  sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 7d
-
-  # garbage collect all unused nix store entries
-  sudo nix store gc --debug
+  sudo nix profile wipe-history --profile /nix/var/nix/profiles/system
+  sudo nix store gc
 
 check:
   nix flake check --extra-experimental-features nix-command --extra-experimental-features flakes
@@ -30,6 +29,3 @@ fmt:
 
 clean:
   rm -rf result
-
-upgrade: && switch
-  git pull
