@@ -21,6 +21,8 @@
       # enableZshIntegration = true;
       settings = {
         theme = "catppuccin-latte";
+        copy_on_select = false;
+        ui.pane_frames.rounded_corners = true;
       };
     };
 
