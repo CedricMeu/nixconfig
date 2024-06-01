@@ -65,6 +65,7 @@
 
       "darktable"
 
+      "virtualbox"
       # "popcorn-time"
     ];
   };
