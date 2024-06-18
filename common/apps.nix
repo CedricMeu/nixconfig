@@ -15,6 +15,7 @@
     typst
     graphviz
     gh
+    mods
 
     # Java
     jdk
