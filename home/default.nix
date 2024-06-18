@@ -11,7 +11,7 @@
     ./kitty.nix
     ./alacritty.nix
     ./vscode.nix
-    ./cargo.nix
+    ./cargo/cargo.nix
   ];
 
   # Home Manager needs a bit of information about you and the
