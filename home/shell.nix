@@ -94,6 +94,7 @@
 
   home.sessionPath = [
     "$(brew --prefix)/opt/llvm/bin"
+    "/opt/homebrew/bin"
     # "$HOME/.cargo/bin"
   ];
 }

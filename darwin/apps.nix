@@ -22,23 +22,15 @@
 
     masApps = {
       Xcode = 497799835;
-      Pages = 409201541;
     };
 
     taps = [
-      "homebrew/cask-fonts"
       "homebrew/services"
-      "homebrew/cask-versions"
-      # {
-      #   name = "popcorn-official/popcorn-desktop";
-      #   clone_target = "https://github.com/popcorn-official/popcorn-desktop.git";
-      # }
     ];
 
     casks = [
       "raycast"
 
-      "kitty"
       "alacritty"
       "visual-studio-code"
 
@@ -48,6 +40,7 @@
 
       "messenger"
       "discord"
+      "slack"
 
       "mochi"
       "obsidian"
@@ -59,6 +52,9 @@
       "microsoft-powerpoint"
       "microsoft-word"
       "microsoft-teams"
+
+      "google-chrome"
+      "google-drive"
 
       "ultimaker-cura"
 
@@ -76,7 +72,6 @@
       "darktable"
 
       "virtualbox"
-      # "popcorn-time"
     ];
   };
 }
