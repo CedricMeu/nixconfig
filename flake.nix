@@ -45,6 +45,7 @@
       {
         systems = [
           "x86_64-darwin"
+          "aarch64-darwin"
         ];
 
         flake = {
@@ -57,6 +58,13 @@
             import ./hosts/macbook-2017
               {
                 inherit inputs nixpkgs home-manager darwin username useremail;
+              }
+            //
+            import ./hosts/macbook-gs
+              {
+                inherit inputs nixpkgs home-manager darwin;
+                username = "cedric.meukens";
+                useremail = "cedric.meukens@guardsquare.com";
               }
           );
         };

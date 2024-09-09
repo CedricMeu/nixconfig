@@ -88,9 +88,6 @@
         "com.apple.spaces" = {
           "spans-displays" = 0; # Display have seperate spaces
         };
-        "com.apple.Safari" = {
-          AutoOpenSafeDownloads = false;
-        };
         "com.apple.WindowManager" = {
           EnableStandardClickToShowDesktop = 0; # Click wallpaper to reveal desktop
           StandardHideDesktopIcons = 0; # Show items on desktop
