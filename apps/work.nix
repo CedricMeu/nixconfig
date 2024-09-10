@@ -23,10 +23,6 @@
       cleanup = "zap";
     };
 
-    # masApps = {
-    #   Xcode = 497799835;
-    # };
-
     taps = [
       "homebrew/services"
     ];
@@ -39,7 +35,7 @@
 
       "languagetool"
 
-      "logi-options-plus"
+      "logi-options+"
 
       "messenger"
       "discord"

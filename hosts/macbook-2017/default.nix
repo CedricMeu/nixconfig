@@ -19,8 +19,10 @@ in
       inherit system specialArgs;
 
       modules = [
-        ../../common
-        ../../darwin
+        ../common
+        ../common/darwin
+
+        ../../apps/personal.nix
 
         home-manager.darwinModules.home-manager
         {
