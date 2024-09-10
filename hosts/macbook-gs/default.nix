@@ -19,13 +19,10 @@ in
       inherit system specialArgs;
 
       modules = [
-        ./apps.nix
-        ../../darwin/system.nix
-        ../../common/system.nix
+        ../common
+        ../common/darwin
 
-        ../../darwin/configuration.nix
-
-        ../../common/nix-core.nix
+        ../../apps/work.nix
 
         home-manager.darwinModules.home-manager
         {
