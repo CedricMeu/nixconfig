@@ -3,57 +3,65 @@
 ## Configuration Structure
 
 ```bash
-.
-├── common
-│  ├── apps.nix
-│  ├── default.nix
-│  ├── nix-core.nix
-│  └── system.nix
-├── darwin
-│  ├── apps.nix
-│  ├── configuration.nix
-│  ├── default.nix
-│  └── system.nix
-├── flake.lock
-├── flake.nix
-├── home
-│  ├── cargo.nix
-│  ├── cargo.toml
-│  ├── core.nix
-│  ├── default.nix
-│  ├── git.nix
-│  ├── helix.nix
-│  ├── kitty.nix
-│  ├── shell.nix
-│  ├── starship.nix
-│  └── vscode.nix
-├── hosts
-│  ├── macbook-2015
-│  │  └── default.nix
-│  └── macbook-2017
-│     └── default.nix
-├── justfile
-└── README.md
-
+ .
+├──  apps
+│  ├──  personal.nix
+│  └──  work.nix
+├── 󱂵 home
+│  ├──  cargo
+│  │  ├──  cargo.nix
+│  │  └──  cargo.toml
+│  ├──  alacritty.nix
+│  ├──  core.nix
+│  ├──  default.nix
+│  ├──  git.nix
+│  ├──  helix.nix
+│  ├──  kitty.nix
+│  ├──  shell.nix
+│  ├──  starship.nix
+│  └──  vscode.nix
+├──  hosts
+│  ├──  common
+│  │  ├──  darwin
+│  │  │  ├──  configuration.nix
+│  │  │  ├──  default.nix
+│  │  │  └──  system.nix
+│  │  ├──  default.nix
+│  │  ├──  nix-core.nix
+│  │  └──  system.nix
+│  ├──  macbook-2015
+│  │  └──  default.nix
+│  ├──  macbook-2017
+│  │  └──  default.nix
+│  └──  macbook-gs
+│     └──  default.nix
+├──  flake.lock
+├──  flake.nix
+├──  justfile
+└──  README.md
 ```
 
-- `./common` holds configuration that might be shared between Darwin and other OSes.
-
-- `./darwin` holds configuration that is specific to Darwin.
-
-- `./home` holds home-manager configuration (dotfiles).
-
-- `./hosts` holds a configuration for each host. This configuration points towards `./home`, `./common`, and `./darwin` if that host happens to be on macOS.
+- `apps/` holds configurations for applications separated by setting, one configuration for work, one for personal use.
+- `home/` holds home-manager configuration (dotfiles).
+- `hosts/` holds a configuration for each host. This configuration includes the `home/`, `hosts/common`, and `hosts/common/darwin` (if that host happens to be on macOS) modules.
+- `hosts/common/` holds common configuration for all hosts.
+- `hosts/common/darwin` holds common configuration for all macOS hosts.
 
 ## Setup
 
 1. Install nix using the [determinate nix installer](https://github.com/DeterminateSystems/nix-installer).
-2. Install [Homebrew](https://brew.sh).
-3. Alter `username` and `useremail` in `flake.nix`, and describe your host under `hosts/`
-4. Install this flake `nix develop --extra-experimental-features nix-command --extra-experimental-features flakes -c just`.
-5. Restart your terminal
-7. In this repo, run `echo "use flake" > .envrc` and then `direnv allow` once.
+1. Install [Homebrew](https://brew.sh).
+1. Alter `username` and `useremail` in `flake.nix`, note that `macbook-gs` has the `username` and `useremail` overridden.
+1. Describe your host under `hosts/`.
+1. Add your host in `flake.nix` under `darwinConfigurations`.
+1. Build the flake with `nix build .#darwinConfigurations.$(hostname).system --extra-experimental-features nix-command --extra-experimental-features flakes`. If another hostname is to be used than currently set, replace `$(hostname)` with that name.
+1. Restart your terminal
+1. In this repo, run `echo "use flake" > .envrc` and then `direnv allow` once. This will start a dev shell with all needed tooling every time you `cd` into the folder.
 
-From here on the devshell should be automatically loaded when entering the folder.
-Here you can use `just` to interact with the flake.
-The default target builds and switches configurations.
+## Applying
+
+Simply run `darwin-rebuild switch --flake .` to apply the configuration.
+
+## Other
+
+Some useful commands are provided in a justfile.
