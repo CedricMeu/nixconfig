@@ -1,4 +1,5 @@
-{ inputs
+{ self
+, inputs
 , home-manager
 , darwin
 , username
@@ -22,7 +23,7 @@ in
         ../common
         ../common/darwin
 
-        ../../apps/personal.nix
+        (self + /apps/personal.nix)
 
         home-manager.darwinModules.home-manager
         {

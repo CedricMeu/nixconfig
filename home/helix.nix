@@ -77,6 +77,10 @@
         indent-guides = {
           render = true;
         };
+
+        statusline = {
+          left = [ "mode" "spinner" "version-control" "file-name" "read-only-indicator" "file-modification-indicator" ];
+        };
       };
 
       keys = {
@@ -190,6 +194,12 @@
           args = [ "--stdio" ];
         };
 
+        tailwindcss-tsx = {
+          language-id = "tsx";
+          command = "tailwindcss-language-server";
+          args = [ "--stdio" ];
+        };
+
         tailwindcss-css = {
           language-id = "css";
           command = "tailwindcss-language-server";
@@ -292,6 +302,20 @@
               except-features = [ "format" ];
             }
             "eslint"
+          ];
+        }
+        {
+          name = "tsx";
+          auto-format = true;
+          formatter = { command = "prettier"; args = [ "--parser" "typescript" ]; };
+          language-servers = [
+            {
+              name = "typescript-language-server";
+              except-features = [ "format" ];
+            }
+            "eslint"
+            "emmet-ls"
+            "tailwindcss-tsx"
           ];
         }
         {
