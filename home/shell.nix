@@ -21,7 +21,7 @@
       # enableZshIntegration = true;
       settings = {
         theme = "catppuccin-latte";
-        copy_on_select = false;
+        copy_on_select = true;
         ui.pane_frames.rounded_corners = true;
       };
     };
@@ -81,7 +81,6 @@
     };
 
     eza.enable = true;
-    htop.enable = true;
   };
 
   home.shellAliases = {
@@ -97,4 +96,12 @@
     "/opt/homebrew/bin"
     # "$HOME/.cargo/bin"
   ];
+
+  home.sessionVariables = {
+    GOPROXY = "http://go-proxy.guardsquare.com";
+    GOINSECURE = "*.guardsquare.com/*";
+    GONOSUMDB = "go.guardsquare.com";
+    MATCH_KEY_JSON = "$HOME/.config/guardsquare/fastlane.json";
+  };
 }
+

@@ -1,15 +1,18 @@
-{ pkgs, ... }:
+{ pkgs, nurpkgs, ... }:
+let
+  nur = import nurpkgs { inherit pkgs; };
+in
 {
   environment.systemPackages = with pkgs; [
     # CLI tools
     git
     zellij
-
-    # Build tools
-    just
+    go
+    nodejs
+    corepack
+    nur.arcanist
 
     # Misc
-    typst
     mods
   ];
 
@@ -27,21 +30,24 @@
       "homebrew/services"
     ];
 
+    brews = [
+      "ideviceinstaller"
+      "fastlane"
+      "docker"
+    ];
+
     casks = [
       "raycast"
+      "rectangle"
+      "logi-options+"
 
       "alacritty"
       "visual-studio-code"
-
-      "languagetool"
-
-      "logi-options+"
+      "android-studio"
 
       "messenger"
       "discord"
       "slack"
-
-      "rectangle"
 
       "google-chrome"
       "google-drive"
@@ -51,5 +57,9 @@
       "cloudflare-warp"
       "tailscale"
     ];
+
+    masApps = {
+      Xcode = 497799835;
+    };
   };
 }
