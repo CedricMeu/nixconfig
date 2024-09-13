@@ -91,12 +91,6 @@
     j = "just";
   };
 
-  home.sessionPath = [
-    "$(brew --prefix)/opt/llvm/bin"
-    "/opt/homebrew/bin"
-    # "$HOME/.cargo/bin"
-  ];
-
   home.sessionVariables = {
     GOPROXY = "http://go-proxy.guardsquare.com";
     GOINSECURE = "*.guardsquare.com/*";
