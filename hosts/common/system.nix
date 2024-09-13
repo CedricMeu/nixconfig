@@ -5,6 +5,10 @@
     pkgs.zsh
   ];
 
+  environment.systemPath = [
+    # "$HOME/.cargo/bin"
+  ];
+
   # Fonts
   fonts = {
     packages = with pkgs; [
