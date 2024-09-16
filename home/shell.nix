@@ -11,10 +11,32 @@
       enableZshIntegration = true;
     };
 
-    fzf = {
-      enable = true;
-      enableZshIntegration = true;
-    };
+    fzf =
+      let
+        catppuccin-late = {
+          "bg+" = "#ccd0da";
+          "bg" = "#eff1f5";
+          "spinner" = "#dc8a78";
+          "hl" = "#d20f39";
+          "fg" = "#4c4f69";
+          "header" = "#d20f39";
+          "info" = "#8839ef";
+          "pointer" = "#dc8a78";
+          "marker" = "#7287fd";
+          "fg+" = "#4c4f69";
+          "prompt" = "#8839ef";
+          "hl+" = "#d20f39";
+          "selected-bg" = "#bcc0cc";
+        };
+      in
+      {
+        enable = true;
+        colors = catppuccin-late;
+        enableZshIntegration = true;
+        defaultOptions = [
+          "--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+        ];
+      };
 
     zellij = {
       enable = true;
@@ -85,8 +107,8 @@
 
   home.shellAliases = {
     ls = "eza --icons=always --group-directories-first";
-    ll = "ls -l";
-    lt = "ls --tree";
+    ll = "eza --icons=always --group-directories-first -l";
+    lt = "eza --icons=always --group-directories-first --tree";
     tp = "termpdf.py";
     j = "just";
   };

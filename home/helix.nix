@@ -170,16 +170,20 @@
             nodePath = "";
             codeAction = {
               disableRuleComment = {
-                enable = true;
-                locaton = "separateLine";
+                enable = false;
               };
               showDocumentation.enable = true;
             };
-            workingDirectory.mode = "location";
+            workingDirectories.mode = "auto";
             codeActionOnSave = {
               enable = true;
-              mode = "fixAll";
+              mode = "all";
+              "source.fixAll" = true;
             };
+            lintTask = {
+              enable = true;
+            };
+            format.enable = true;
           };
         };
 

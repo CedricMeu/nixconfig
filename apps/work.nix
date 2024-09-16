@@ -6,6 +6,7 @@ in
   environment.systemPackages = with pkgs; [
     # CLI tools
     git
+    gitui
     zellij
     go
     nodejs
