@@ -13,6 +13,9 @@ in
     corepack
     nur.arcanist
 
+    #java stuff
+    jdk17
+
     # Misc
     mods
   ];
@@ -57,6 +60,8 @@ in
 
       "cloudflare-warp"
       "tailscale"
+
+      "microsoft-teams"
     ];
 
     masApps = {

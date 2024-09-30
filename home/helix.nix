@@ -1,43 +1,46 @@
-{ pkgs, ... }:
+{ helix, pkgs, ... }:
 {
   programs.helix = {
     enable = true;
 
-    extraPackages = with pkgs; [
-      # lsps
-      nodePackages.bash-language-server
-      # lua-language-server
+    package = helix.packages."${pkgs.system}".helix;
 
-      marksman
+    extraPackages = with pkgs;
+      [
+        # lsps
+        nodePackages.bash-language-server
+        # lua-language-server
 
-      pyright
-      python311Packages.python-lsp-server
-      poetry
+        marksman
 
-      taplo
+        pyright
+        python311Packages.python-lsp-server
+        poetry
 
-      nil
+        taplo
 
-      typst-lsp
+        nil
 
-      nodePackages.typescript-language-server
-      vscode-langservers-extracted
+        typst-lsp
 
-      texlab
-      ltex-ls
+        nodePackages.typescript-language-server
+        vscode-langservers-extracted
 
-      nodePackages.svelte-language-server
-      nodePackages.prettier
-      nodePackages.vscode-langservers-extracted
-      emmet-ls
-      tailwindcss-language-server
+        texlab
+        ltex-ls
 
-      # formatters
-      black
-      dprint
-      nixpkgs-fmt
-      typstfmt
-    ];
+        nodePackages.svelte-language-server
+        nodePackages.prettier
+        nodePackages.vscode-langservers-extracted
+        emmet-ls
+        tailwindcss-language-server
+
+        # formatters
+        black
+        dprint
+        nixpkgs-fmt
+        typstfmt
+      ];
 
     defaultEditor = true;
 
