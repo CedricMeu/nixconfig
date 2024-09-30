@@ -9,6 +9,7 @@
       [
         # lsps
         nodePackages.bash-language-server
+
         # lua-language-server
 
         marksman
@@ -34,6 +35,10 @@
         nodePackages.vscode-langservers-extracted
         emmet-ls
         tailwindcss-language-server
+
+        gopls
+        golangci-lint
+        golangci-lint-langserver
 
         # formatters
         black
@@ -83,6 +88,13 @@
 
         statusline = {
           left = [ "mode" "spinner" "version-control" "file-name" "read-only-indicator" "file-modification-indicator" ];
+        };
+
+        end-of-line-diagnostics = "hint";
+
+        inline-diagnostics = {
+          cursor-line = "warning";
+          # other-lines = "warning";
         };
       };
 
