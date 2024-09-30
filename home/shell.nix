@@ -1,4 +1,4 @@
-{ pkgs, lib, osConfig, config, ... }: {
+{ pkgs, lib, osConfig, config, helix, ... }: {
   programs = {
     direnv = {
       enable = true;
@@ -179,7 +179,7 @@
       enable = true;
       envFile.text = lib.optionalString (osConfig ? environment) ''
         load-env ${builtins.toJSON osConfig.environment.variables}
-        $env.EDITOR = "${pkgs.helix}/bin/hx"
+        $env.EDITOR = "${helix.packages."${pkgs.system}".helix}/bin/hx"
         $env.PATH = "${builtins.replaceStrings
         [
             "$USER"
