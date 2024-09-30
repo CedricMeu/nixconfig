@@ -1,14 +1,14 @@
 {
-  # Starship configuration from this example:
-  # https://github.com/srid/nixos-config/blob/f9cf0def19fbc7aa1e836be481ce50d214e34036/home/starship.nix#L4-L19
   programs.starship = {
     enable = true;
+    enableZshIntegration = true;
+    enableNushellIntegration = true;
     settings = {
       username = {
         style_user = "blue bold";
         style_root = "red bold";
         format = "[$user]($style) ";
-        disabled = false;
+        disabled = true;
         show_always = true;
       };
       hostname = {
@@ -16,7 +16,7 @@
         ssh_symbol = "🌐 ";
         format = "on [$hostname](bold red) ";
         trim_at = ".local";
-        disabled = false;
+        disabled = true;
       };
     };
   };

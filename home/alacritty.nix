@@ -28,7 +28,8 @@ in
       font = {
         size = 12;
         normal = {
-          family = "JetBrainsMono Nerd Font Mono";
+          # family = "JetBrainsMono Nerd Font Mono";
+          family = "CaskaydiaCove Nerd Font Mono";
           style = "Regular";
         };
       };

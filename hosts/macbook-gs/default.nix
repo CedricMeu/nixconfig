@@ -22,6 +22,7 @@ in
       modules = [
         ../common
         ../common/darwin
+        ./system.nix
 
         (self + /apps/work.nix)
 

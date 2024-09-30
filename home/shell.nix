@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, osConfig, config, ... }: {
   programs = {
     direnv = {
       enable = true;
@@ -9,6 +9,7 @@
     zoxide = {
       enable = true;
       enableZshIntegration = true;
+      enableNushellIntegration = true;
     };
 
     fzf =
@@ -43,8 +44,99 @@
       # enableZshIntegration = true;
       settings = {
         theme = "catppuccin-latte";
+        default_shell = "${pkgs.nushell}/bin/nu";
+        copy_command = "pbcopy";
         copy_on_select = true;
         ui.pane_frames.rounded_corners = true;
+        keybinds = {
+          locked = {
+            "unbind \"Ctrl g\"" = [ ];
+            "bind \"Alt g\"" = {
+              SwitchToMode = "Normal";
+            };
+          };
+
+          move = {
+            "bind \"Alt m\"" = { SwitchToMode = "Normal"; };
+          };
+
+          pane = {
+            "bind \"Alt p\"" = { SwitchToMode = "Normal"; };
+          };
+
+          resize = {
+            "bind \"Alt r\"" = { SwitchToMode = "Normal"; };
+          };
+
+          scroll = {
+            "bind \"Alt s\"" = { SwitchToMode = "Normal"; };
+          };
+
+          session = {
+            "bind \"Alt w\"" = { SwitchToMode = "Normal"; };
+            "bind \"Alt s\"" = { SwitchToMode = "scroll"; };
+          };
+
+          tab = {
+            "bind \"Alt t\"" = { SwitchToMode = "Normal"; };
+          };
+
+          "shared_except \"locked\"" = {
+            "unbind \"Ctrl h\"" = [ ]; # was Move, now Alt-v
+            "unbind \"Ctrl o\"" = [ ]; # was Session, now Alt-w
+            "unbind \"Ctrl s\"" = [ ]; # was Scroll, now Alt-s
+            "unbind \"Ctrl n\"" = [ ]; # was Resize, now Alt-z
+            "unbind \"Ctrl p\"" = [ ]; # was Pane, now Alt-a
+            "unbind \"Ctrl t\"" = [ ]; # was Tab, now Alt-b
+            "unbind \"Ctrl g\"" = [ ]; # was Locked, now Alt-g
+            "unbind \"Ctrl q\"" = [ ]; # was Quit, now Alt-q
+            "bind \"Alt g\"" = { SwitchToMode = "locked"; };
+            "bind \"Alt q\"" = { Quit = [ ]; };
+            "bind \"Alt d\"" = { NewPane = "down"; };
+            "bind \"Alt n\"" = { NewPane = "right"; };
+            "bind \"Alt f\"" = {
+              ToggleFloatingPanes = [ ];
+            };
+            "bind \"Alt 1\"" = { GoToTab = 1; };
+            "bind \"Alt 2\"" = { GoToTab = 2; };
+            "bind \"Alt 3\"" = { GoToTab = 3; };
+            "bind \"Alt 4\"" = { GoToTab = 4; };
+            "bind \"Alt 5\"" = { GoToTab = 5; };
+            "bind \"Alt 6\"" = { GoToTab = 6; };
+            "bind \"Alt 7\"" = { GoToTab = 7; };
+            "bind \"Alt 8\"" = { GoToTab = 8; };
+            "bind \"Alt 9\"" = { GoToTab = 9; };
+            "bind \"Alt 0\"" = { GoToTab = 10; };
+          };
+
+          "shared_except \"tmux\"" = {
+            "unbind \"Ctrl b\"" = [ ]; # was Tmux
+          };
+
+          "shared_except \"move\" \"locked\"" = {
+            "bind \"Alt m\"" = { SwitchToMode = "move"; };
+          };
+
+          "shared_except \"pane\" \"locked\"" = {
+            "bind \"Alt p\"" = { SwitchToMode = "pane"; };
+          };
+
+          "shared_except \"resize\" \"locked\"" = {
+            "bind \"Alt r\"" = { SwitchToMode = "resize"; };
+          };
+
+          "shared_except \"scroll\" \"locked\"" = {
+            "bind \"Alt s\"" = { SwitchToMode = "scroll"; };
+          };
+
+          "shared_except \"session\" \"locked\"" = {
+            "bind \"Alt w\"" = { SwitchToMode = "session"; };
+          };
+
+          "shared_except \"tab\" \"locked\"" = {
+            "bind \"Alt t\"" = { SwitchToMode = "tab"; };
+          };
+        };
       };
     };
 
@@ -83,6 +175,37 @@
       ];
     };
 
+    nushell = {
+      enable = true;
+      envFile.text = lib.optionalString (osConfig ? environment) ''
+        load-env ${builtins.toJSON osConfig.environment.variables}
+        $env.EDITOR = "${pkgs.helix}/bin/hx"
+        $env.PATH = "${builtins.replaceStrings
+        [
+            "$USER"
+            "$HOME"
+        ]
+        [
+            config.home.username
+            config.home.homeDirectory
+        ]
+        osConfig.environment.systemPath}"
+
+        let external_completer = {|spans|
+          fish --command $'complete "--do-complete=($spans | str join " ")"'
+          | $"value(char tab)description(char newline)" + $in
+          | from tsv --flexible --no-infer
+        }
+
+        $env.config.completions.external = {
+          enable: true
+          completer: $external_completer
+        }
+      '';
+    };
+
+    # Abusing fish for it's completions
+    fish.enable = true;
 
     bat = {
       enable = true;
@@ -102,22 +225,17 @@
       };
     };
 
-    eza.enable = true;
+    # eza = {
+    #   enable = true;
+    #   enableNushellIntegration = true;
+    # };
   };
 
   home.shellAliases = {
-    ls = "eza --icons=always --group-directories-first";
-    ll = "eza --icons=always --group-directories-first -l";
-    lt = "eza --icons=always --group-directories-first --tree";
-    tp = "termpdf.py";
-    j = "just";
-  };
-
-  home.sessionVariables = {
-    GOPROXY = "http://go-proxy.guardsquare.com";
-    GOINSECURE = "*.guardsquare.com/*";
-    GONOSUMDB = "go.guardsquare.com";
-    MATCH_KEY_JSON = "$HOME/.config/guardsquare/fastlane.json";
+    # ls = "eza --icons=always --group-directories-first";
+    # ll = "eza --icons=always --group-directories-first -l";
+    # lt = "eza --icons=always --group-directories-first --tree";
+    # j = "just";
   };
 }
 
