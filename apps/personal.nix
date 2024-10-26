@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     # CLI tools
     git
+    gh
     zellij
 
     # Build tools
@@ -13,7 +14,6 @@
 
     # Misc
     typst
-    gh
     mods
   ];
 
@@ -34,7 +34,7 @@
     casks = [
       "raycast"
 
-      "alacritty"
+      "wezterm"
       "visual-studio-code"
 
       "languagetool"

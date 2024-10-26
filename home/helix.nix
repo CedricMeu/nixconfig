@@ -30,15 +30,12 @@
         texlab
         ltex-ls
 
+        efm-langserver
         nodePackages.svelte-language-server
         nodePackages.prettier
         nodePackages.vscode-langservers-extracted
         emmet-ls
         tailwindcss-language-server
-
-        gopls
-        golangci-lint
-        golangci-lint-langserver
 
         # formatters
         black
@@ -127,6 +124,15 @@
               S = ":wa";
               q = ":bc";
             };
+
+            t = {
+              t = ":tree-sitter-subtree";
+              a = "select_all_siblings";
+              h = "select_prev_sibling";
+              l = "select_next_sibling";
+              j = "select_all_children";
+              k = [ "extend_parent_node_start" "extend_parent_node_end" ];
+            };
           };
         };
 
@@ -169,36 +175,58 @@
           command = "ltex-ls";
         };
 
+        typescript-language-server = {
+          command = "typescript-language-server";
+          args = [ "--stdio" ];
+          config = {
+            hostInfo = "helix";
+            typescript.inlayHints = {
+              includeInlayEnumMemberValueHints = true;
+              includeInlayFunctionLikeReturnTypeHints = false;
+              includeInlayFunctionParameterTypeHints = false;
+              includeInlayParameterNameHints = "all";
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false;
+              includeInlayPropertyDeclarationTypeHints = true;
+              includeInlayVariableTypeHints = true;
+            };
+          };
+        };
+
+        efm-lsp-prettier = {
+          command = "efm-langserver";
+          config = {
+            documentFormatting = true;
+            languages = pkgs.lib.genAttrs [ "typescript" "javascript" "typescriptreact" "javascriptreact" "vue" "json" "markdown" ] (_: [{
+              formatCommand = "prettier --stdin-filepath \${INPUT}";
+              formatStdin = true;
+            }]);
+          };
+        };
+
         eslint = {
           command = "vscode-eslint-language-server";
           args = [ "--stdio" ];
           config = {
             validate = "on";
-            experimental = {
-              useFlatConfig = false;
-            };
+            packageManager = "yarn";
+            useESLintClass = false;
+            codeActionOnSave.mode = "all";
+            format = true;
+            quiet = false;
+            onIgnoredFiles = "off";
             rulesCustomizations = [ ];
             run = "onType";
-            problems = {
-              shortenToSingleLine = false;
-            };
             nodePath = "";
+            workingDirectories.mode = "auto";
+            experimental = { };
+            problems.shortenToSingleLine = false;
             codeAction = {
               disableRuleComment = {
-                enable = false;
+                enable = true;
+                location = "separateLine";
               };
               showDocumentation.enable = true;
             };
-            workingDirectories.mode = "auto";
-            codeActionOnSave = {
-              enable = true;
-              mode = "all";
-              "source.fixAll" = true;
-            };
-            lintTask = {
-              enable = true;
-            };
-            format.enable = true;
           };
         };
 
@@ -314,27 +342,23 @@
         {
           name = "typescript";
           auto-format = true;
-          formatter = { command = "prettier"; args = [ "--parser" "typescript" ]; };
+          # formatter = { command = "prettier"; args = [ "--parser" "typescript" ]; };
           language-servers = [
-            {
-              name = "typescript-language-server";
-              except-features = [ "format" ];
-            }
+            { name = "typescript-language-server"; except-features = [ "format" ]; }
             "eslint"
+            { name = "efm-lsp-prettier"; only-features = [ "format" ]; }
           ];
         }
         {
           name = "tsx";
           auto-format = true;
-          formatter = { command = "prettier"; args = [ "--parser" "typescript" ]; };
+          # formatter = { command = "prettier"; args = [ "--parser" "typescript" ]; };
           language-servers = [
-            {
-              name = "typescript-language-server";
-              except-features = [ "format" ];
-            }
+            { name = "typescript-language-server"; except-features = [ "format" ]; }
             "eslint"
             "emmet-ls"
             "tailwindcss-tsx"
+            { name = "efm-lsp-prettier"; only-features = [ "format" ]; }
           ];
         }
         {
@@ -342,11 +366,7 @@
           auto-format = true;
           formatter = { command = "prettier"; args = [ "--parser" "html" ]; };
           language-servers = [
-            {
-              name = "vscode-html-language-server";
-              except-features = [ "format" ];
-            }
-            "eslint"
+            "vscode-html-language-server"
             "emmet-ls"
             "tailwindcss-html"
           ];
@@ -354,13 +374,14 @@
         {
           name = "json";
           auto-format = true;
-          formatter = { command = "prettier"; args = [ "--parser" "json" ]; };
+          # formatter = { command = "prettier"; args = [ "--parser" "json" ]; };
           language-servers = [
             {
               name = "vscode-json-language-server";
               except-features = [ "format" ];
             }
             "eslint"
+            { name = "efm-lsp-prettier"; only-features = [ "format" ]; }
           ];
         }
         {

@@ -1,17 +1,11 @@
-{ pkgs, nurpkgs, ... }:
-let
-  nur = import nurpkgs { inherit pkgs; };
-in
+{ pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     # CLI tools
     git
     gitui
+    gh
     zellij
-    go
-    nodejs
-    corepack
-    nur.arcanist
 
     #java stuff
     jdk17
@@ -45,7 +39,7 @@ in
       "rectangle"
       "logi-options+"
 
-      "alacritty"
+      "wezterm"
       "visual-studio-code"
       "android-studio"
 
@@ -62,6 +56,8 @@ in
       "tailscale"
 
       "microsoft-teams"
+
+      "eclipse-rcp"
     ];
 
     masApps = {

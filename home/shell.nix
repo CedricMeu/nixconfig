@@ -201,6 +201,11 @@
           enable: true
           completer: $external_completer
         }
+
+        $env.config.show_banner = false
+
+        alias nu-open = open
+        alias open = ^open
       '';
     };
 
@@ -224,18 +229,6 @@
         };
       };
     };
-
-    # eza = {
-    #   enable = true;
-    #   enableNushellIntegration = true;
-    # };
-  };
-
-  home.shellAliases = {
-    # ls = "eza --icons=always --group-directories-first";
-    # ll = "eza --icons=always --group-directories-first -l";
-    # lt = "eza --icons=always --group-directories-first --tree";
-    # j = "just";
   };
 }
 
