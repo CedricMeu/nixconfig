@@ -1,11 +1,9 @@
 {
   description = "Nix for macOS configuration";
 
-  # the nixConfig here only affects the flake itself, not the system configuration!
   nixConfig = {
     substituters = [
-      # Query the mirror of USTC first, and then the official cache.
-      # "https://mirrors.ustc.edu.cn/nix-channels/store"
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
     ];
   };
@@ -30,7 +28,7 @@
     };
 
     helix = {
-      url = "github:helix-editor/helix";
+      url = "github:CedricMeu/helix/better-bufferline";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

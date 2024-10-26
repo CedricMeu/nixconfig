@@ -8,8 +8,9 @@
     ./git.nix
     ./starship.nix
     ./helix.nix
-    ./kitty.nix
-    ./alacritty.nix
+    # ./kitty.nix
+    # ./alacritty.nix
+    ./wezterm/wezterm.nix
     ./vscode.nix
     ./cargo/cargo.nix
   ];
