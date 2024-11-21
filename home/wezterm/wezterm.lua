@@ -1,6 +1,7 @@
 local wezterm = require 'wezterm'
 
 return {
+  automatically_reload_config = true,
   enable_tab_bar = false,
   disable_default_key_bindings = true,
   keys = {
@@ -49,10 +50,13 @@ return {
     bottom = 0,
   },
   window_decorations = 'RESIZE',
-  color_scheme = 'Catppuccin Latte',
+  color_scheme = 'ayu_light',
 
   font = wezterm.font('CaskaydiaCove Nerd Font Mono', { weight = 'Regular', italic = false }),
-  font_size = 12,
+  font_size = 13.5,
 
   default_prog = { 'ZELLIJ_PATH', '-l', 'welcome'},
+
+  -- selection_fg = 'black',
+  -- selection_bg = '#fffacd',
 }

@@ -12,13 +12,13 @@
   # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nurpkgs.url = "github:CedricMeu/nur-packages";
-    # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
+      # url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -39,7 +39,6 @@
     , flake-parts
     , home-manager
     , darwin
-    , nurpkgs
     , ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } (
@@ -57,17 +56,17 @@
           darwinConfigurations = (
             import ./hosts/macbook-2015
               {
-                inherit self inputs nixpkgs nurpkgs home-manager darwin username useremail;
+                inherit self inputs nixpkgs home-manager darwin username useremail;
               }
             //
             import ./hosts/macbook-2017
               {
-                inherit self inputs nixpkgs nurpkgs home-manager darwin username useremail;
+                inherit self inputs nixpkgs home-manager darwin username useremail;
               }
             //
             import ./hosts/macbook-gs
               {
-                inherit self inputs nixpkgs nurpkgs home-manager darwin;
+                inherit self inputs nixpkgs home-manager darwin;
                 username = "cedric.meukens";
                 useremail = "cedric.meukens@guardsquare.com";
               }
