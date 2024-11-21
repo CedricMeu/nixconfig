@@ -47,7 +47,7 @@
     defaultEditor = true;
 
     settings = {
-      theme = "catppuccin_latte";
+      theme = "ayu_light";
 
       editor = {
         line-number = "relative";

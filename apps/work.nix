@@ -58,6 +58,7 @@
       "microsoft-teams"
 
       "eclipse-rcp"
+      "intellij-idea-ce"
     ];
 
     masApps = {
