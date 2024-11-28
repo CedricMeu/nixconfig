@@ -24,6 +24,8 @@
       copy_on_select = true;
       ui.pane_frames.rounded_corners = true;
 
+      default_mode = "locked";
+
       "keybinds clear-defaults=true" = {
         locked = {
           "bind \"Ctrl g\"" = { SwitchToMode = "normal"; };
