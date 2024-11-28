@@ -12,6 +12,8 @@
 
     # Misc
     mods
+    typst
+    carapace
   ];
 
   homebrew = {
@@ -59,6 +61,10 @@
 
       "eclipse-rcp"
       "intellij-idea-ce"
+      "tableplus"
+
+      "zotero"
+      "darktable"
     ];
 
     masApps = {

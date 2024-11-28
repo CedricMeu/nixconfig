@@ -4,6 +4,7 @@
   # import sub modules
   imports = [
     ./shell.nix
+    ./nushell/nushell.nix
     ./zellij.nix
     ./core.nix
     ./git.nix
