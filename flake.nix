@@ -31,6 +31,11 @@
       url = "github:CedricMeu/helix/better-bufferline";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    vscoqls = {
+      url = "github:coq/vscoq/v2.2.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
