@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, vscoqls, ... }:
 {
   environment.systemPackages = with pkgs; [
     # CLI tools
@@ -14,6 +14,9 @@
     mods
     typst
     carapace
+
+    vscoqls.packages."${pkgs.system}".default
+    coq
   ];
 
   homebrew = {
