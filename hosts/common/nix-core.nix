@@ -5,7 +5,11 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowAliases = true;
+    # allowBroken = true;
+  };
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
