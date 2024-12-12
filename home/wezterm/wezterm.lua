@@ -49,7 +49,7 @@ return {
     top = 0,
     bottom = 0,
   },
-  window_decorations = 'RESIZE',
+  -- window_decorations = 'RESIZE',
   color_scheme = 'ayu_light',
 
   font = wezterm.font('CaskaydiaCove Nerd Font Mono', { weight = 'Regular', italic = false }),
