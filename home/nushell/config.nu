@@ -108,5 +108,7 @@ $env.config.completions.external = {
 
 $env.config.show_banner = false
 
+use std/dirs *
+
 alias nu-open = open
 alias open = ^open

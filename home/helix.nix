@@ -1,9 +1,7 @@
-{ helix, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.helix = {
     enable = true;
-
-    package = helix.packages."${pkgs.system}".helix;
 
     extraPackages = with pkgs;
       [
@@ -203,32 +201,39 @@
           };
         };
 
-        eslint = {
-          command = "vscode-eslint-language-server";
-          args = [ "--stdio" ];
-          config = {
-            validate = "on";
-            packageManager = "yarn";
-            useESLintClass = false;
-            codeActionOnSave.mode = "all";
-            format = true;
-            quiet = false;
-            onIgnoredFiles = "off";
-            rulesCustomizations = [ ];
-            run = "onType";
-            nodePath = "";
-            workingDirectories.mode = "auto";
-            experimental = { };
-            problems.shortenToSingleLine = false;
-            codeAction = {
-              disableRuleComment = {
-                enable = true;
-                location = "separateLine";
-              };
-              showDocumentation.enable = true;
-            };
-          };
-        };
+        # eslint = {
+        #   command = "vscode-eslint-language-server";
+        #   args = [ "--stdio" ];
+        #   roots = [ "eslint.config.mjs" ];
+        #   config = {
+        #     validate = "on";
+        #     packageManager = "yarn";
+        #     useESLintClass = false;
+        #     codeActionOnSave = {
+        #       enable = true;
+        #       mode = "fixAll";
+        #       # mode = "all";
+        #     };
+        #     format = true;
+        #     quiet = false;
+        #     onIgnoredFiles = "off";
+        #     rulesCustomizations = [ ];
+        #     run = "onType";
+        #     nodePath = "";
+        #     workingDirectory.mode = "location";
+        #     experimental = {
+        #       useFlatConfig = true;
+        #     };
+        #     problems.shortenToSingleLine = false;
+        #     codeAction = {
+        #       disableRuleComment = {
+        #         enable = true;
+        #         location = "separateLine";
+        #       };
+        #       showDocumentation.enable = true;
+        #     };
+        #   };
+        # };
 
         emmet-ls = {
           command = "emmet-ls";

@@ -1,4 +1,4 @@
-{ pkgs, lib, osConfig, config, helix, ... }:
+{ pkgs, lib, osConfig, config, ... }:
 let
   config_file = builtins.readFile ./config.nu;
 in
@@ -15,7 +15,7 @@ in
       load-env ${builtins.toJSON osConfig.environment.variables}
 
       # Fix editor
-      $env.EDITOR = "${helix.packages."${pkgs.system}".helix}/bin/hx"
+      $env.EDITOR = "${pkgs.helix}/bin/hx"
 
       # Fix system path
       $env.PATH = "${builtins.replaceStrings

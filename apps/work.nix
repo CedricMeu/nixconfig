@@ -1,4 +1,4 @@
-{ pkgs, vscoqls, ... }:
+{ pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     # CLI tools
@@ -15,7 +15,7 @@
     typst
     carapace
 
-    vscoqls.packages."${pkgs.system}".default
+    vscoqls
     coq
   ];
 
@@ -45,7 +45,8 @@
       "logi-options+"
 
       "wezterm"
-      "visual-studio-code"
+      "ghostty"
+      "vscodium"
       "android-studio"
 
       "messenger"
@@ -67,7 +68,10 @@
       "tableplus"
 
       "zotero"
-      "darktable"
+      # "darktable"
+      # "rawtherapee"
+      "minecraft"
+      "siyuan"
     ];
 
     masApps = {
