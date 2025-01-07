@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, helix, vscoqls, nix-vscode-extensions, ... }:
 
 {
   # enable flakes globally
@@ -8,8 +8,15 @@
   nixpkgs.config = {
     allowUnfree = true;
     allowAliases = true;
-    # allowBroken = true;
   };
+
+  nixpkgs.overlays = [
+    nix-vscode-extensions.overlays.default
+    (final: prev: {
+      helix = helix.packages.${final.system}.default;
+      vscoqls = vscoqls.packages."${pkgs.system}".default;
+    })
+  ];
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

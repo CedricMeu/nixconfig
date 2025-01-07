@@ -117,6 +117,9 @@
         };
         # Prevent Photos from opening automatically when devices are plugged in
         "com.apple.ImageCapture".disableHotPlug = true;
+        "com.vscodium" = {
+          ApplePressAndHoldEnabled = false;
+        };
       };
 
       loginwindow = {
