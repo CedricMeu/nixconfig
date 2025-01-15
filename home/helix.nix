@@ -53,7 +53,7 @@
         bufferline = "always";
         color-modes = true;
         auto-save = true;
-        scroll-lines = 1;
+        scroll-lines = 3;
         true-color = true;
         idle-timeout = 50;
         undercurl = true;
