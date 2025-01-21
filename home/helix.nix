@@ -20,7 +20,7 @@
 
         nil
 
-        typst-lsp
+        tinymist
 
         nodePackages.typescript-language-server
         vscode-langservers-extracted
@@ -109,6 +109,10 @@
           C-a = "goto_line_start";
           C-e = "goto_line_end";
 
+          W = "move_next_sub_word_start";
+          B = "move_prev_sub_word_start";
+          E = "move_next_sub_word_end";
+
           space = {
             space = "command_palette";
 
@@ -132,6 +136,12 @@
               k = [ "extend_parent_node_start" "extend_parent_node_end" ];
             };
           };
+        };
+
+        select = {
+          W = "move_next_sub_word_start";
+          B = "move_prev_sub_word_start";
+          E = "move_next_sub_word_end";
         };
 
         insert = {
@@ -161,10 +171,7 @@
         ruff.command = "ruff-lsp";
 
         typst = {
-          command = "typst-lsp";
-          config = {
-            exportPdf = "never";
-          };
+          command = "tinymist";
         };
 
         clangd.command = "/usr/bin/clangd";
@@ -314,7 +321,10 @@
             command = "typstfmt";
             args = [ "/dev/stdin" "-o" "/dev/stdout" ];
           };
-          language-servers = [ "typst" "ltex" ];
+          language-servers = [
+            "typst"
+            # "ltex" 
+          ];
         }
         {
           name = "latex";
