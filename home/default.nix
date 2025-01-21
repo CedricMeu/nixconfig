@@ -13,6 +13,7 @@
     ./wezterm/wezterm.nix
     ./vscode.nix
     ./cargo/cargo.nix
+    ./ghostty/ghostty.nix
   ];
 
   # Home Manager needs a bit of information about you and the
