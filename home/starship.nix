@@ -23,6 +23,20 @@
       gcloud = {
         disabled = true;
       };
+      git_status = {
+        conflicted = "\${count}";
+        ahead = "⇡\${count}";
+        behind = "⇣\${count}";
+        diverged = "⇡\${ahead_count}⇣\${behind_count}";
+        up_to_date = "\${count}";
+        untracked = "\${count}";
+        stashed = "\${count}";
+        modified = "\${count}";
+        staged = "\${count}";
+        renamed = "\${count}";
+        deleted = "\${count}";
+        typechanged = "\${count}";
+      };
       custom = {
         systime = {
           shell = [ "nu" "-c" ];
