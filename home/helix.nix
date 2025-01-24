@@ -35,6 +35,9 @@
         emmet-ls
         tailwindcss-language-server
 
+        buf
+        pb
+
         # formatters
         black
         dprint
@@ -270,6 +273,12 @@
           command = "tailwindcss-language-server";
           args = [ "--stdio" ];
         };
+
+        bufls = {
+          language-id = "protobuf";
+          command = "buf";
+          args = [ "beta" "lsp" ];
+        };
       };
 
       language = [
@@ -404,6 +413,12 @@
           auto-format = true;
           file-types = [ "css" "postcss" ];
           language-servers = [ "tailwindcss-css" "vscode-css-language-server" ];
+        }
+        {
+          name = "protobuf";
+          auto-format = true;
+          file-types = [ "proto" ];
+          language-servers = [ "bufls" "pbkit" ];
         }
       ];
     };
