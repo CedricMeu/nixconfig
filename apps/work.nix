@@ -71,7 +71,10 @@
       # "darktable"
       # "rawtherapee"
       "minecraft"
+
       "siyuan"
+
+      "lm-studio"
     ];
 
     masApps = {
