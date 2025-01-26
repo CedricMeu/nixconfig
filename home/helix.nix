@@ -37,6 +37,7 @@
 
         buf
         pb
+        protols
 
         # formatters
         black
@@ -279,6 +280,11 @@
           command = "buf";
           args = [ "beta" "lsp" ];
         };
+
+        protols = {
+          language-id = "protobuf";
+          command = "protols";
+        };
       };
 
       language = [
@@ -418,7 +424,7 @@
           name = "protobuf";
           auto-format = true;
           file-types = [ "proto" ];
-          language-servers = [ "bufls" "pbkit" ];
+          language-servers = [ "bufls" "pbkit" "protols" ];
         }
       ];
     };
