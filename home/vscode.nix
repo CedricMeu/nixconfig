@@ -2,7 +2,7 @@
   programs.vscode = {
     enable = true;
 
-    package = pkgs.vscodium;
+    # package = pkgs.vscodium;
 
     mutableExtensionsDir = false;
     enableUpdateCheck = false;
@@ -28,9 +28,10 @@
         golang.go
 
         ms-azuretools.vscode-docker
-      ] ++ (with pkgs.open-vsx; [
-        jasew.vscode-helix-emulation
-      ]);
+      ];
+    # ++ (with pkgs.open-vsx; [
+    #   jasew.vscode-helix-emulation
+    # ]);
 
     userSettings =
       {
