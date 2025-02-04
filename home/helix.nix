@@ -13,8 +13,9 @@
         marksman
 
         pyright
-        python311Packages.python-lsp-server
-        poetry
+        ruff
+        python312Packages.jedi-language-server
+        python312Packages.python-lsp-server
 
         taplo
 
@@ -172,8 +173,6 @@
           args = [ "--stdio" ];
         };
 
-        ruff.command = "ruff-lsp";
-
         typst = {
           command = "tinymist";
         };
@@ -303,7 +302,12 @@
             command = "black";
             args = [ "--quiet" "-" ];
           };
-          language-servers = [ "pyright" "ruff" ];
+          language-servers = [
+            "ruff"
+            "pyright"
+            "jedi"
+            "pylsp"
+          ];
         }
         {
           name = "rust";

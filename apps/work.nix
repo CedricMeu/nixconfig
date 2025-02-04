@@ -48,7 +48,8 @@
 
       "wezterm"
       "ghostty"
-      "vscodium"
+      "visual-studio-code" # For development reasons
+      # "vscodium"
       "android-studio"
 
       "messenger"
