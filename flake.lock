@@ -218,6 +218,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-vsc-lang-servers": {
+      "locked": {
+        "lastModified": 1698391188,
+        "narHash": "sha256-SicYLP/fBQvmAqFF/SS/v4RUp9Y2bbOzm7ZhlfucLck=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c1c760a1f23ac5d2df75117df032d8ddcdb9affd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c1c760a1f23ac5d2df75117df032d8ddcdb9affd",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "darwin": "darwin",
@@ -227,6 +243,7 @@
         "home-manager": "home-manager",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-vsc-lang-servers": "nixpkgs-vsc-lang-servers",
         "vscoqls": "vscoqls"
       }
     },

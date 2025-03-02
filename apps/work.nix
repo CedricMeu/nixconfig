@@ -6,19 +6,22 @@
     gitui
     gh
     zellij
+    eza
 
-    #java stuff
-    jdk17
+    zulu23
 
     # Misc
     mods
     typst
     carapace
+    wget
 
     vscoqls
     coq
 
-    (pkgs.google-cloud-sdk.withExtraComponents [ pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+    (pkgs.google-cloud-sdk.withExtraComponents [
+      pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
+    ])
   ];
 
   homebrew = {
@@ -46,7 +49,6 @@
       "rectangle"
       "logi-options+"
 
-      "wezterm"
       "ghostty"
       "visual-studio-code" # For development reasons
       # "vscodium"
@@ -71,12 +73,10 @@
       "tableplus"
 
       "zotero"
-      # "darktable"
-      # "rawtherapee"
+
       "minecraft"
 
-      "siyuan"
-
+      "affine"
       "lm-studio"
     ];
 

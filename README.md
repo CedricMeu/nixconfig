@@ -5,43 +5,40 @@
 ```bash
  .
 ├──  apps
-│  ├──  personal.nix
-│  └──  work.nix
+│   └──  work.nix
 ├── 󱂵 home
-│  ├──  cargo
-│  │  ├──  cargo.nix
-│  │  └──  cargo.toml
-│  ├──  alacritty.nix
-│  ├──  core.nix
-│  ├──  default.nix
-│  ├──  git.nix
-│  ├──  helix.nix
-│  ├──  kitty.nix
-│  ├──  shell.nix
-│  ├──  starship.nix
-│  └──  vscode.nix
+│   ├──  core.nix
+│   ├──  default.nix
+│   ├──  ghostty
+│   │   ├──  config
+│   │   └──  ghostty.nix
+│   ├──  git.nix
+│   ├──  helix.nix
+│   ├──  nushell
+│   │   ├──  config.nu
+│   │   └──  nushell.nix
+│   ├──  shell.nix
+│   ├──  starship.nix
+│   ├──  vscode.nix
+│   └──  zellij.nix
 ├──  hosts
-│  ├──  common
-│  │  ├──  darwin
-│  │  │  ├──  configuration.nix
-│  │  │  ├──  default.nix
-│  │  │  └──  system.nix
-│  │  ├──  default.nix
-│  │  ├──  nix-core.nix
-│  │  └──  system.nix
-│  ├──  macbook-2015
-│  │  └──  default.nix
-│  ├──  macbook-2017
-│  │  └──  default.nix
-│  └──  macbook-gs
-│     └──  default.nix
+│   ├──  common
+│   │   ├──  darwin
+│   │   │   ├──  configuration.nix
+│   │   │   ├──  default.nix
+│   │   │   └──  system.nix
+│   │   ├──  default.nix
+│   │   ├──  nix-core.nix
+│   │   └──  system.nix
+│   └──  macbook-gs
+│       ├──  default.nix
+│       └──  system.nix
 ├──  flake.lock
 ├──  flake.nix
-├──  justfile
-└──  README.md
+└── 󰂺 README.md
 ```
 
-- `apps/` holds configurations for applications separated by setting, one configuration for work, one for personal use.
+- `apps/` holds declarations for the apps to be installed.
 - `home/` holds home-manager configuration (dotfiles).
 - `hosts/` holds a configuration for each host. This configuration includes the `home/`, `hosts/common`, and `hosts/common/darwin` (if that host happens to be on macOS) modules.
 - `hosts/common/` holds common configuration for all hosts.
@@ -60,8 +57,4 @@
 
 ## Applying
 
-Simply run `darwin-rebuild switch --flake .` to apply the configuration.
-
-## Other
-
-Some useful commands are provided in a justfile.
+Simply run `cfg switch` to apply the configuration.

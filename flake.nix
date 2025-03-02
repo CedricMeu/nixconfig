@@ -12,6 +12,7 @@
   # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
+    nixpkgs-vsc-lang-servers.url = "github:nixos/nixpkgs/c1c760a1f23ac5d2df75117df032d8ddcdb9affd";
 
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -53,16 +54,18 @@
   };
 
   outputs =
-    inputs @ { self
-    , nixpkgs
-    , flake-utils
-    , devshell
-    , home-manager
-    , darwin
-    , ...
+    inputs@{
+      self,
+      nixpkgs,
+      nixpkgs-vsc-lang-servers,
+      flake-utils,
+      devshell,
+      home-manager,
+      darwin,
+      ...
     }:
-    flake-utils.lib.eachDefaultSystem
-      (system:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs {
           inherit system;
@@ -73,44 +76,58 @@
       in
       {
 
-        devShell =
-          pkgs.devshell.mkShell {
-            name = "cfg";
+        devShell = pkgs.devshell.mkShell {
+          name = "cfg";
 
-            commands = [
-              {
-                help = "Update inputs";
-                name = "update";
-                command = "nix flake update";
-              }
-              {
-                help = "Switch to new configuration";
-                name = "switch";
-                command = "darwin-rebuild switch --flake .";
-              }
-              {
-                help = "Build new configuration";
-                name = "build";
-                command = "darwin-rebuild build --flake .";
-              }
-              {
-                help = "Rollback to previous version";
-                name = "rollback";
-                command = "darwin-rebuild --rollback";
-              }
-            ];
-          };
+          commands = [
+            {
+              help = "Switch to new configuration";
+              name = "switch";
+              command = "darwin-rebuild switch --flake .";
+            }
+            {
+              help = "Build new configuration";
+              name = "build";
+              command = "darwin-rebuild build --flake .";
+            }
+            {
+              help = "Rollback to previous version";
+              name = "rollback";
+              command = "darwin-rebuild --rollback";
+            }
+            {
+              help = "Garbage collection";
+              name = "gc";
+              command = "
+                sudo nix profile wipe-history --profile /nix/var/nix/profiles/system
+                sudo nix store gc
+              ";
+            }
+            {
+              help = "Show history";
+              name = "history";
+              command = "nix profile history --profile /nix/var/nix/profiles/system";
+            }
+          ];
+        };
 
         formatter = pkgs.nixpkgs-fmt;
-      })
+      }
+    )
     // {
       darwinConfigurations = (
-        import ./hosts/macbook-gs
-          {
-            inherit self inputs nixpkgs home-manager darwin;
-            username = "cedric.meukens";
-            useremail = "cedric.meukens@guardsquare.com";
-          }
+        import ./hosts/macbook-gs {
+          inherit
+            self
+            inputs
+            nixpkgs
+            nixpkgs-vsc-lang-servers
+            home-manager
+            darwin
+            ;
+          username = "cedric.meukens";
+          useremail = "cedric.meukens@guardsquare.com";
+        }
       );
     };
 }

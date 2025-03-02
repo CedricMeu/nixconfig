@@ -3,49 +3,53 @@
   programs.helix = {
     enable = true;
 
-    extraPackages = with pkgs;
-      [
-        # lsps
-        nodePackages.bash-language-server
+    extraPackages = with pkgs; [
+      # LPSs
+      nodePackages.bash-language-server
 
-        # lua-language-server
+      marksman
 
-        marksman
+      pyright
+      ruff
+      python312Packages.jedi-language-server
+      python312Packages.python-lsp-server
 
-        pyright
-        ruff
-        python312Packages.jedi-language-server
-        python312Packages.python-lsp-server
+      taplo
 
-        taplo
+      nil
+      nixd
 
-        nil
+      tinymist
 
-        tinymist
+      nodePackages.typescript-language-server
 
-        nodePackages.typescript-language-server
-        vscode-langservers-extracted
+      vscode-langservers-extracted
 
-        texlab
-        ltex-ls
+      texlab
+      ltex-ls
 
-        efm-langserver
-        nodePackages.svelte-language-server
-        nodePackages.prettier
-        nodePackages.vscode-langservers-extracted
-        emmet-ls
-        tailwindcss-language-server
+      efm-langserver
+      nodePackages.svelte-language-server
+      nodePackages.prettier
+      nodePackages.vscode-langservers-extracted
+      emmet-ls
+      tailwindcss-language-server
 
-        buf
-        pb
-        protols
+      buf
+      protols
 
-        # formatters
-        black
-        dprint
-        nixpkgs-fmt
-        typstfmt
-      ];
+      gopls
+      golangci-lint-langserver
+
+      # formatters
+      black
+      dprint
+      typstfmt
+      nixfmt-rfc-style
+
+      # DAPs
+      delve
+    ];
 
     defaultEditor = true;
 
@@ -87,7 +91,14 @@
         };
 
         statusline = {
-          left = [ "mode" "spinner" "version-control" "file-name" "read-only-indicator" "file-modification-indicator" ];
+          left = [
+            "mode"
+            "spinner"
+            "version-control"
+            "file-name"
+            "read-only-indicator"
+            "file-modification-indicator"
+          ];
         };
 
         end-of-line-diagnostics = "hint";
@@ -100,7 +111,10 @@
 
       keys = {
         normal = {
-          esc = [ "collapse_selection" "keep_primary_selection" ];
+          esc = [
+            "collapse_selection"
+            "keep_primary_selection"
+          ];
 
           C-h = "jump_view_left";
           C-j = "jump_view_down";
@@ -108,8 +122,18 @@
           C-l = "jump_view_right";
 
           X = [ "extend_line_above" ];
-          A-x = [ "extend_line_below" "extend_visual_line_up" "extend_visual_line_up" "extend_to_line_bounds" ];
-          A-X = [ "extend_line_above" "extend_visual_line_down" "extend_visual_line_down" "extend_to_line_bounds" ];
+          A-x = [
+            "extend_line_below"
+            "extend_visual_line_up"
+            "extend_visual_line_up"
+            "extend_to_line_bounds"
+          ];
+          A-X = [
+            "extend_line_above"
+            "extend_visual_line_down"
+            "extend_visual_line_down"
+            "extend_to_line_bounds"
+          ];
 
           C-a = "goto_line_start";
           C-e = "goto_line_end";
@@ -138,7 +162,10 @@
               h = "select_prev_sibling";
               l = "select_next_sibling";
               j = "select_all_children";
-              k = [ "extend_parent_node_start" "extend_parent_node_end" ];
+              k = [
+                "extend_parent_node_start"
+                "extend_parent_node_end"
+              ];
             };
           };
         };
@@ -204,46 +231,38 @@
           command = "efm-langserver";
           config = {
             documentFormatting = true;
-            languages = pkgs.lib.genAttrs [ "typescript" "javascript" "typescriptreact" "javascriptreact" "vue" "json" "markdown" ] (_: [{
-              formatCommand = "prettier --stdin-filepath \${INPUT}";
-              formatStdin = true;
-            }]);
+            languages =
+              pkgs.lib.genAttrs
+                [
+                  "typescript"
+                  "javascript"
+                  "typescriptreact"
+                  "javascriptreact"
+                  "vue"
+                  "json"
+                  "markdown"
+                ]
+                (_: [
+                  {
+                    formatCommand = "prettier --stdin-filepath \${INPUT}";
+                    formatStdin = true;
+                  }
+                ]);
           };
         };
 
-        # eslint = {
-        #   command = "vscode-eslint-language-server";
-        #   args = [ "--stdio" ];
-        #   roots = [ "eslint.config.mjs" ];
-        #   config = {
-        #     validate = "on";
-        #     packageManager = "yarn";
-        #     useESLintClass = false;
-        #     codeActionOnSave = {
-        #       enable = true;
-        #       mode = "fixAll";
-        #       # mode = "all";
-        #     };
-        #     format = true;
-        #     quiet = false;
-        #     onIgnoredFiles = "off";
-        #     rulesCustomizations = [ ];
-        #     run = "onType";
-        #     nodePath = "";
-        #     workingDirectory.mode = "location";
-        #     experimental = {
-        #       useFlatConfig = true;
-        #     };
-        #     problems.shortenToSingleLine = false;
-        #     codeAction = {
-        #       disableRuleComment = {
-        #         enable = true;
-        #         location = "separateLine";
-        #       };
-        #       showDocumentation.enable = true;
-        #     };
-        #   };
-        # };
+        vscode-eslint-language-server = {
+          command = "vscode-eslint-language-server";
+          args = [ "--stdio" ];
+          config = {
+            validate = "on";
+            run = "onType";
+            workingDirectory.mode = "location";
+            experimental.useFlatConfig = true;
+            format.enable = false;
+            nodePath = "";
+          };
+        };
 
         emmet-ls = {
           command = "emmet-ls";
@@ -277,7 +296,10 @@
         bufls = {
           language-id = "protobuf";
           command = "buf";
-          args = [ "beta" "lsp" ];
+          args = [
+            "beta"
+            "lsp"
+          ];
         };
 
         protols = {
@@ -291,16 +313,18 @@
           name = "nix";
           auto-format = true;
           formatter = {
-            command = "nixpkgs-fmt";
+            command = "nixfmt";
           };
-          language-servers = [ "nil" ];
         }
         {
           name = "python";
           auto-format = true;
           formatter = {
             command = "black";
-            args = [ "--quiet" "-" ];
+            args = [
+              "--quiet"
+              "-"
+            ];
           };
           language-servers = [
             "ruff"
@@ -319,7 +343,10 @@
           auto-format = true;
           formatter = {
             command = "taplo";
-            args = [ "fmt" "-" ];
+            args = [
+              "fmt"
+              "-"
+            ];
           };
           language-servers = [ "taplo" ];
         }
@@ -338,37 +365,57 @@
           };
           formatter = {
             command = "typstfmt";
-            args = [ "/dev/stdin" "-o" "/dev/stdout" ];
+            args = [
+              "/dev/stdin"
+              "-o"
+              "/dev/stdout"
+            ];
           };
           language-servers = [
             "typst"
-            # "ltex" 
+            # "ltex"
           ];
         }
         {
           name = "latex";
           auto-format = true;
-          language-servers = [ "texlab" "ltex" ];
+          language-servers = [
+            "texlab"
+            "ltex"
+          ];
         }
         {
           name = "markdown";
           auto-format = true;
           formatter = {
             command = "dprint";
-            args = [ "fmt" "--stdin" "md" ];
+            args = [
+              "fmt"
+              "--stdin"
+              "md"
+            ];
           };
-          language-servers = [ "marksman" "ltex" ];
+          language-servers = [
+            "marksman"
+            "ltex"
+          ];
         }
         {
           name = "svelte";
           auto-format = true;
-          formatter = { command = "prettier"; args = [ "--parser" "svelte" ]; };
+          formatter = {
+            command = "prettier";
+            args = [
+              "--parser"
+              "svelte"
+            ];
+          };
           language-servers = [
             {
               name = "svelteserver";
               except-features = [ "format" ];
             }
-            "eslint"
+            "vscode-eslint-language-server"
             "emmet-ls"
             "tailwindcss-svelte"
           ];
@@ -376,29 +423,77 @@
         {
           name = "typescript";
           auto-format = true;
-          # formatter = { command = "prettier"; args = [ "--parser" "typescript" ]; };
           language-servers = [
-            { name = "typescript-language-server"; except-features = [ "format" ]; }
-            "eslint"
-            { name = "efm-lsp-prettier"; only-features = [ "format" ]; }
+            {
+              name = "typescript-language-server";
+              except-features = [ "format" ];
+            }
+            "vscode-eslint-language-server"
+            {
+              name = "efm-lsp-prettier";
+              only-features = [ "format" ];
+            }
           ];
         }
         {
           name = "tsx";
           auto-format = true;
-          # formatter = { command = "prettier"; args = [ "--parser" "typescript" ]; };
           language-servers = [
-            { name = "typescript-language-server"; except-features = [ "format" ]; }
-            "eslint"
+            {
+              name = "typescript-language-server";
+              except-features = [ "format" ];
+            }
+            "vscode-eslint-language-server"
             "emmet-ls"
             "tailwindcss-tsx"
-            { name = "efm-lsp-prettier"; only-features = [ "format" ]; }
+            {
+              name = "efm-lsp-prettier";
+              only-features = [ "format" ];
+            }
+          ];
+        }
+        {
+          name = "javascript";
+          auto-format = true;
+          language-servers = [
+            {
+              name = "typescript-language-server";
+              except-features = [ "format" ];
+            }
+            "vscode-eslint-language-server"
+            {
+              name = "efm-lsp-prettier";
+              only-features = [ "format" ];
+            }
+          ];
+        }
+        {
+          name = "jsx";
+          auto-format = true;
+          language-servers = [
+            {
+              name = "typescript-language-server";
+              except-features = [ "format" ];
+            }
+            "vscode-eslint-language-server"
+            "emmet-ls"
+            "tailwindcss-tsx"
+            {
+              name = "efm-lsp-prettier";
+              only-features = [ "format" ];
+            }
           ];
         }
         {
           name = "html";
           auto-format = true;
-          formatter = { command = "prettier"; args = [ "--parser" "html" ]; };
+          formatter = {
+            command = "prettier";
+            args = [
+              "--parser"
+              "html"
+            ];
+          };
           language-servers = [
             "vscode-html-language-server"
             "emmet-ls"
@@ -414,21 +509,34 @@
               name = "vscode-json-language-server";
               except-features = [ "format" ];
             }
-            "eslint"
-            { name = "efm-lsp-prettier"; only-features = [ "format" ]; }
+            "vscode-eslint-language-server"
+            {
+              name = "efm-lsp-prettier";
+              only-features = [ "format" ];
+            }
           ];
         }
         {
           name = "css";
           auto-format = true;
-          file-types = [ "css" "postcss" ];
-          language-servers = [ "tailwindcss-css" "vscode-css-language-server" ];
+          file-types = [
+            "css"
+            "postcss"
+          ];
+          language-servers = [
+            "tailwindcss-css"
+            "vscode-css-language-server"
+          ];
         }
         {
           name = "protobuf";
           auto-format = true;
           file-types = [ "proto" ];
-          language-servers = [ "bufls" "pbkit" "protols" ];
+          language-servers = [
+            "bufls"
+            "pbkit"
+            "protols"
+          ];
         }
       ];
     };

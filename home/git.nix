@@ -1,7 +1,9 @@
-{ lib
-, useremail
-, ...
-}: {
+{
+  lib,
+  useremail,
+  ...
+}:
+{
   # `programs.git` will generate the config file: ~/.config/git/config
   # to make git use this config file, `~/.gitconfig` should not exist!
   #
@@ -73,14 +75,14 @@
       ls = "log --pretty=format:\"%C(yellow)%h%Cred%d : %Creset%s%Cblue [%cn]\" --decorate";
       tree = "log --pretty=format:\"%C(yellow)%h%Cred%d : %Creset%s%Cblue [%cn]\" --decorate --graph --abbrev-commit --all";
       ll = "log --pretty=format:\"%C(yellow)%h%Cred%d : %Creset%s%Cblue [%cn]\" --decorate --numstat";
+      c = "commit";
       cm = "commit -m";
-      ca = "commit -am";
+      ca = "commit --amend";
+      cam = "commit --amend --message";
+      cr = "commit --reuse-message=ORIGN_HEAD";
+      r = "rebase --update-refs -i";
+      diff = "diff|delta"; # A hack to make mouse input work on git diff with delta
       dc = "diff --cached";
-      amend = "commit --amend -m";
-
-      # aliases for submodule
-      update = "submodule update --init --recursive";
-      foreach = "submodule foreach";
     };
   };
 }

@@ -1,15 +1,18 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.vscode = {
     enable = true;
 
+    # Disabled to develop an extension:
     # package = pkgs.vscodium;
+    # mutableExtensionsDir = false;
+    # enableExtensionUpdateCheck = false;
 
-    mutableExtensionsDir = false;
     enableUpdateCheck = false;
-    enableExtensionUpdateCheck = false;
 
     extensions =
-      with pkgs.vscode-extensions; [
+      with pkgs.vscode-extensions;
+      [
         visualstudioexptteam.vscodeintellicode
         visualstudioexptteam.intellicode-api-usage-examples
 
@@ -28,24 +31,27 @@
         golang.go
 
         ms-azuretools.vscode-docker
-      ];
-    # ++ (with pkgs.open-vsx; [
-    #   jasew.vscode-helix-emulation
-    # ]);
 
-    userSettings =
-      {
-        "workbench.colorTheme" = "Ayu Light";
-        "workbench.iconTheme" = "ayu";
+        dbaeumer.vscode-eslint
+      ]
+      ++ (with pkgs.open-vsx; [
+        jasew.vscode-helix-emulation
+        vitest.explorer
+      ]);
 
-        "files.autoSave" = "afterDelay";
+    userSettings = {
+      "workbench.colorTheme" = "Ayu Light";
+      "workbench.iconTheme" = "ayu";
 
-        "terminal.integrated.fontFamily" = "Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
-        "editor.fontFamily" = "Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
-        "editor.fontSize" = 10;
-        "editor.fontLigatures" = true;
-        "extensions.ignoreRecommendations" = true;
-        "extensions.experimental.affinity"."jasew.vscode-helix-emulation" = 1;
-      };
+      "files.autoSave" = "afterDelay";
+
+      "terminal.integrated.fontFamily" = "Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
+      "editor.fontFamily" = "Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
+      "editor.fontSize" = 10;
+      "editor.fontLigatures" = true;
+      "extensions.ignoreRecommendations" = true;
+      "extensions.experimental.affinity"."jasew.vscode-helix-emulation" = 1;
+      "eslint.useFlatConfig" = true;
+    };
   };
 }
