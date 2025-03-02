@@ -10,9 +10,7 @@
     ./git.nix
     ./starship.nix
     ./helix.nix
-    ./wezterm/wezterm.nix
     ./vscode.nix
-    ./cargo/cargo.nix
     ./ghostty/ghostty.nix
   ];
 

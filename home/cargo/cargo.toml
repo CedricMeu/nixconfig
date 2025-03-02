@@ -1,9 +1,0 @@
-[build]
-target-dir = "~/.target"
-rustflags = ["-Z", "threads=12"]
-
-# [unstable]
-# codegen-backend = true
-
-# [profile.dev]
-# codegen-backend = "cranelift"

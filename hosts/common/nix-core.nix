@@ -1,8 +1,23 @@
-{ pkgs, lib, helix, vscoqls, nix-vscode-extensions, ... }:
-
+{
+  pkgs,
+  lib,
+  helix,
+  vscoqls,
+  nix-vscode-extensions,
+  nixpkgs-vsc-lang-servers,
+  ...
+}:
+let
+  pkgs-vsc-lang-servers = import nixpkgs-vsc-lang-servers {
+    system = pkgs.system;
+  };
+in
 {
   # enable flakes globally
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Allow unfree packages
   nixpkgs.config = {
@@ -15,6 +30,7 @@
     (final: prev: {
       helix = helix.packages.${final.system}.default;
       vscoqls = vscoqls.packages."${pkgs.system}".default;
+      vscode-langservers-extracted = pkgs-vsc-lang-servers.vscode-langservers-extracted;
     })
   ];
 
