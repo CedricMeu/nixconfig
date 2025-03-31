@@ -13,7 +13,7 @@
     # Misc
     mods
     typst
-    carapace
+    # carapace
     wget
 
     vscoqls

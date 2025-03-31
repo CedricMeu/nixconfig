@@ -1,4 +1,10 @@
-{ pkgs, lib, osConfig, config, ... }:
+{
+  pkgs,
+  lib,
+  osConfig,
+  config,
+  ...
+}:
 let
   config_file = builtins.readFile ./config.nu;
 in
@@ -18,19 +24,21 @@ in
       $env.EDITOR = "${pkgs.helix}/bin/hx"
 
       # Fix system path
-      $env.PATH = "${builtins.replaceStrings
-      [
-          "$USER"
-          "$HOME"
-      ]
-      [
-          config.home.username
-          config.home.homeDirectory
-      ]
-      osConfig.environment.systemPath}"
+      $env.PATH = "${
+        builtins.replaceStrings
+          [
+            "$USER"
+            "$HOME"
+          ]
+          [
+            config.home.username
+            config.home.homeDirectory
+          ]
+          osConfig.environment.systemPath
+      }"
 
-      mkdir ~/.cache/carapace
-      carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+      # mkdir ~/.cache/carapace
+      # carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
     '';
   };
 }

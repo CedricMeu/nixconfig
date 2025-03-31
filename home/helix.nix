@@ -36,10 +36,17 @@
       tailwindcss-language-server
 
       buf
+      pb
       protols
 
       gopls
       golangci-lint-langserver
+
+      docker-compose-language-service
+      dockerfile-language-server-nodejs
+      yaml-language-server
+
+      intelephense
 
       # formatters
       black
@@ -255,12 +262,19 @@
           command = "vscode-eslint-language-server";
           args = [ "--stdio" ];
           config = {
-            validate = "on";
+            enable = true;
             run = "onType";
-            workingDirectory.mode = "location";
+            useFlatConfig = true;
             experimental.useFlatConfig = true;
             format.enable = false;
             nodePath = "";
+            codeActionsOnSave.mode = "all";
+            codeAction = {
+              disableRuleComment = {
+                enable = true;
+                location = "separateLine";
+              };
+            };
           };
         };
 
@@ -320,9 +334,9 @@
           name = "python";
           auto-format = true;
           formatter = {
-            command = "black";
+            command = "ruff";
             args = [
-              "--quiet"
+              "format"
               "-"
             ];
           };

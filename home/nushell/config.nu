@@ -1,4 +1,4 @@
-source ~/.cache/carapace/init.nu
+# source ~/.cache/carapace/init.nu
 
 let fish_completer = {|spans|
   fish --command $'complete "--do-complete=($spans | str join " ")"'

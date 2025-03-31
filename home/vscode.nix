@@ -8,6 +8,8 @@
     # mutableExtensionsDir = false;
     # enableExtensionUpdateCheck = false;
 
+    # For next version
+    # profiles.default = {
     enableUpdateCheck = false;
 
     extensions =
@@ -45,13 +47,27 @@
 
       "files.autoSave" = "afterDelay";
 
-      "terminal.integrated.fontFamily" = "Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
-      "editor.fontFamily" = "Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
-      "editor.fontSize" = 10;
+      "terminal.integrated.fontFamily" =
+        "CaskaydiaCove Nerd Font Mono, Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
+
+      "editor.fontFamily" =
+        "CaskaydiaCove Nerd Font Mono, Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
+      "editor.fontSize" = 12;
       "editor.fontLigatures" = true;
+      "editor.formatOnSave" = true;
+
       "extensions.ignoreRecommendations" = true;
       "extensions.experimental.affinity"."jasew.vscode-helix-emulation" = 1;
       "eslint.useFlatConfig" = true;
+
+      "terminal.integrated.profiles.osx" = {
+        "nu" = {
+          "path" = "${pkgs.nushell}/bin/nu";
+          "args" = [ ];
+        };
+      };
+      "terminal.integrated.defaultProfile.osx" = "nu";
     };
   };
+  # };
 }

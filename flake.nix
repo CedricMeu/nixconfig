@@ -12,11 +12,11 @@
   # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-vsc-lang-servers.url = "github:nixos/nixpkgs/c1c760a1f23ac5d2df75117df032d8ddcdb9affd";
 
     flake-utils = {
       url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     devshell = {
@@ -26,18 +26,18 @@
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
+      # url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     darwin = {
       url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+      # url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     helix = {
       url = "github:CedricMeu/helix/better-bufferline";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     nix-vscode-extensions = {
