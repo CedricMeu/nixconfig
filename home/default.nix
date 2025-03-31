@@ -12,6 +12,7 @@
     ./helix.nix
     ./vscode.nix
     ./ghostty/ghostty.nix
+    ./npm.nix
   ];
 
   # Home Manager needs a bit of information about you and the

@@ -43,12 +43,12 @@
       # Helix
       ".helix/"
 
-      # VSCode Workspace Folder
-      ".vscode/"
-
       # direnv
       ".direnv"
       ".envrc"
+
+      # go
+      "__debug*"
     ];
 
     extraConfig = {
