@@ -224,12 +224,17 @@
             hostInfo = "helix";
             typescript.inlayHints = {
               includeInlayEnumMemberValueHints = true;
-              includeInlayFunctionLikeReturnTypeHints = false;
-              includeInlayFunctionParameterTypeHints = false;
+
+              includeInlayFunctionLikeReturnTypeHints = true;
+              includeInlayFunctionParameterTypeHints = true;
+
               includeInlayParameterNameHints = "all";
               includeInlayParameterNameHintsWhenArgumentMatchesName = false;
+
               includeInlayPropertyDeclarationTypeHints = true;
+
               includeInlayVariableTypeHints = true;
+              includeInlayVariableTypeHintsWhenTypeMatchesName = false;
             };
           };
         };

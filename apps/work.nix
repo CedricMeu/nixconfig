@@ -50,8 +50,7 @@
       "logi-options+"
 
       "ghostty"
-      "visual-studio-code" # For development reasons
-      # "vscodium"
+      "vscodium"
       "android-studio"
 
       "messenger"

@@ -4,9 +4,9 @@
     enable = true;
 
     # Disabled to develop an extension:
-    # package = pkgs.vscodium;
+    package = pkgs.vscodium;
     # mutableExtensionsDir = false;
-    # enableExtensionUpdateCheck = false;
+    enableExtensionUpdateCheck = false;
 
     # For next version
     # profiles.default = {
