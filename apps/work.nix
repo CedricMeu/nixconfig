@@ -70,6 +70,7 @@
       "eclipse-rcp"
       "intellij-idea-ce"
       "tableplus"
+      "zed"
 
       "zotero"
 

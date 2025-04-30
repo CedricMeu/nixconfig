@@ -37,7 +37,6 @@
         dbaeumer.vscode-eslint
       ]
       ++ (with pkgs.open-vsx; [
-        jasew.vscode-helix-emulation
         vitest.explorer
       ]);
 
