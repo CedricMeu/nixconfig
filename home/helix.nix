@@ -53,6 +53,7 @@
       dprint
       typstfmt
       nixfmt-rfc-style
+      python312Packages.sqlparse
 
       # DAPs
       delve
@@ -556,6 +557,16 @@
             "pbkit"
             "protols"
           ];
+        }
+        {
+          name = "sql";
+          auto-format = true;
+          formatter = {
+            command = "sqlformat";
+            args = [
+              "-"
+            ];
+          };
         }
       ];
     };

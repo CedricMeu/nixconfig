@@ -1,4 +1,5 @@
 theme = ayu_light
 font-family = "CaskaydiaCove Nerd Font Mono"
+font-size = 14
 command = "ZELLIJ_PATH -l welcome"
 macos-option-as-alt = true
