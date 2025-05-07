@@ -27,6 +27,7 @@ in
 
   nixpkgs.overlays = [
     nix-vscode-extensions.overlays.default
+
     (final: prev: {
       helix = helix.packages.${final.system}.default;
       vscoqls = vscoqls.packages."${pkgs.system}".default;
