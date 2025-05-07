@@ -6,67 +6,67 @@
     # Disabled to develop an extension:
     package = pkgs.vscodium;
     # mutableExtensionsDir = false;
-    enableExtensionUpdateCheck = false;
 
-    # For next version
-    # profiles.default = {
-    enableUpdateCheck = false;
+    profiles.default = {
+      enableExtensionUpdateCheck = false;
 
-    extensions =
-      with pkgs.vscode-extensions;
-      [
-        visualstudioexptteam.vscodeintellicode
-        visualstudioexptteam.intellicode-api-usage-examples
+      enableUpdateCheck = false;
 
-        catppuccin.catppuccin-vsc
-        catppuccin.catppuccin-vsc-icons
-        teabyii.ayu
-        mkhl.direnv
+      extensions =
+        with pkgs.vscode-extensions;
+        [
+          visualstudioexptteam.vscodeintellicode
+          visualstudioexptteam.intellicode-api-usage-examples
 
-        ms-python.python
-        ms-toolsai.jupyter
+          catppuccin.catppuccin-vsc
+          catppuccin.catppuccin-vsc-icons
+          teabyii.ayu
+          mkhl.direnv
 
-        tamasfe.even-better-toml
+          ms-python.python
+          ms-toolsai.jupyter
 
-        maximedenes.vscoq
+          tamasfe.even-better-toml
 
-        golang.go
+          maximedenes.vscoq
 
-        ms-azuretools.vscode-docker
+          golang.go
 
-        dbaeumer.vscode-eslint
-      ]
-      ++ (with pkgs.open-vsx; [
-        vitest.explorer
-      ]);
+          ms-azuretools.vscode-docker
 
-    userSettings = {
-      "workbench.colorTheme" = "Ayu Light";
-      "workbench.iconTheme" = "ayu";
+          dbaeumer.vscode-eslint
+        ]
+        ++ (with pkgs.open-vsx; [
+          vitest.explorer
+        ]);
 
-      "files.autoSave" = "afterDelay";
+      userSettings = {
+        "workbench.colorTheme" = "Ayu Light";
+        "workbench.iconTheme" = "ayu";
 
-      "terminal.integrated.fontFamily" =
-        "CaskaydiaCove Nerd Font Mono, Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
+        "files.autoSave" = "afterDelay";
 
-      "editor.fontFamily" =
-        "CaskaydiaCove Nerd Font Mono, Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
-      "editor.fontSize" = 12;
-      "editor.fontLigatures" = true;
-      "editor.formatOnSave" = true;
+        "terminal.integrated.fontFamily" =
+          "CaskaydiaCove Nerd Font Mono, Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
 
-      "extensions.ignoreRecommendations" = true;
-      "extensions.experimental.affinity"."jasew.vscode-helix-emulation" = 1;
-      "eslint.useFlatConfig" = true;
+        "editor.fontFamily" =
+          "CaskaydiaCove Nerd Font Mono, Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";
+        "editor.fontSize" = 12;
+        "editor.fontLigatures" = true;
+        "editor.formatOnSave" = true;
 
-      "terminal.integrated.profiles.osx" = {
-        "nu" = {
-          "path" = "${pkgs.nushell}/bin/nu";
-          "args" = [ ];
+        "extensions.ignoreRecommendations" = true;
+        "extensions.experimental.affinity"."jasew.vscode-helix-emulation" = 1;
+        "eslint.useFlatConfig" = true;
+
+        "terminal.integrated.profiles.osx" = {
+          "nu" = {
+            "path" = "${pkgs.nushell}/bin/nu";
+            "args" = [ ];
+          };
         };
+        "terminal.integrated.defaultProfile.osx" = "nu";
       };
-      "terminal.integrated.defaultProfile.osx" = "nu";
     };
   };
-  # };
 }
