@@ -560,7 +560,7 @@
         }
         {
           name = "sql";
-          auto-format = true;
+          auto-format = false;
           formatter = {
             command = "sqlformat";
             args = [
