@@ -112,3 +112,4 @@ use std/dirs *
 
 alias nu-open = open
 alias open = ^open
+alias fg = job unfreeze
