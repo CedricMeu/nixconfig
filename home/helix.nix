@@ -554,8 +554,8 @@
           file-types = [ "proto" ];
           language-servers = [
             "bufls"
-            "pbkit"
-            "protols"
+            # "pbkit"
+            # "protols"
           ];
         }
         {
