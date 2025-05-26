@@ -84,7 +84,7 @@
             {
               help = "Switch to new configuration";
               name = "switch";
-              command = "darwin-rebuild switch --flake .";
+              command = "sudo darwin-rebuild switch --flake .";
             }
             {
               help = "Build new configuration";
