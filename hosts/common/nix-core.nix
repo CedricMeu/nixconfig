@@ -2,7 +2,6 @@
   pkgs,
   lib,
   helix,
-  vscoqls,
   nix-vscode-extensions,
   nixpkgs-vsc-lang-servers,
   ...
@@ -30,18 +29,17 @@ in
 
     (final: prev: {
       helix = helix.packages.${final.system}.default;
-      vscoqls = vscoqls.packages."${pkgs.system}".default;
       vscode-langservers-extracted = pkgs-vsc-lang-servers.vscode-langservers-extracted;
     })
   ];
 
-  nix.enable = true;
+  nix.enable = false;
 
   nix.package = pkgs.nix;
 
   # do garbage collection weekly to keep disk usage low
   nix.gc = {
-    automatic = lib.mkDefault true;
+    automatic = lib.mkDefault false;
     options = lib.mkDefault "--delete-older-than 7d";
   };
 

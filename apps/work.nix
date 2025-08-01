@@ -7,17 +7,20 @@
     gh
     zellij
     eza
+    edir
 
     zulu23
+
+    gotools
 
     # Misc
     mods
     typst
-    # carapace
+    carapace
     wget
 
-    # vscoqls
-    # coq
+    coq_8_20
+    coqPackages_8_20.vscoq-language-server
 
     (pkgs.google-cloud-sdk.withExtraComponents [
       pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
@@ -41,7 +44,6 @@
     brews = [
       "ideviceinstaller"
       "fastlane"
-      "docker"
     ];
 
     casks = [
@@ -60,10 +62,10 @@
       "google-chrome"
       "google-drive"
 
-      "docker"
+      "docker-desktop"
 
       "cloudflare-warp"
-      "tailscale"
+      "tailscale-app"
 
       "microsoft-teams"
 
@@ -78,6 +80,9 @@
 
       "affine"
       "lm-studio"
+
+      "darktable"
+      "rawtherapee"
     ];
 
     masApps = {

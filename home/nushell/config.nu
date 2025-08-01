@@ -1,9 +1,17 @@
-# source ~/.cache/carapace/init.nu
+source ~/.cache/carapace/init.nu
 
+let carapace_completer = {|spans: list<string>|
+  carapace $spans.0 nushell ...$spans
+  | from json
+  | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
+}
 let fish_completer = {|spans|
   fish --command $'complete "--do-complete=($spans | str join " ")"'
   | from tsv --flexible --noheaders --no-infer
   | rename value description
+  | update value {
+    if ($in | path exists) {$'"($in | str replace "\"" "\\\"" )"'} else {$in}
+  }
 }
 
 let zoxide_completer = {|spans|
@@ -25,12 +33,12 @@ let external_completer = {|spans|
 
   match $spans.0 {
     # # carapace completions are incorrect for nu
-    # nu => $fish_completer
+    nu => $fish_completer
     # # fish completes commits and branch names in a nicer way
-    # git => $fish_completer
+    git => $fish_completer
     __zoxide_z | __zoxide_zi => $zoxide_completer
-    # _ => $carapace_completer
-    _ => $fish_completer
+    _ => $carapace_completer
+    # _ => $fish_completer
   } | do $in $spans
 }
 

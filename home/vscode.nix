@@ -3,9 +3,7 @@
   programs.vscode = {
     enable = true;
 
-    # Disabled to develop an extension:
     package = pkgs.vscodium;
-    # mutableExtensionsDir = false;
 
     profiles.default = {
       enableExtensionUpdateCheck = false;
@@ -66,6 +64,8 @@
           };
         };
         "terminal.integrated.defaultProfile.osx" = "nu";
+
+        "vscoq.path" = "${pkgs.coqPackages_8_20.vscoq-language-server}/bin/vscoqtop";
       };
     };
   };
