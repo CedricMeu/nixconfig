@@ -27,6 +27,7 @@
 
       texlab
       ltex-ls
+      typos-lsp
 
       efm-langserver
       nodePackages.svelte-language-server
@@ -51,9 +52,10 @@
       # formatters
       black
       dprint
-      typstfmt
+      typstyle
       nixfmt-rfc-style
       python312Packages.sqlparse
+      gotools # For goimports
 
       # DAPs
       delve
@@ -74,6 +76,10 @@
         true-color = true;
         idle-timeout = 50;
         undercurl = true;
+        rulers = [
+          80
+          120
+        ];
 
         lsp = {
           display-inlay-hints = true;
@@ -88,6 +94,21 @@
           insert = "bar";
           normal = "block";
           select = "underline";
+        };
+
+        whitespace = {
+          render.space = "all";
+          render.tab = "all";
+          render.nbsp = "all";
+          render.nnbsp = "all";
+          render.newline = "all";
+
+          characters.space = "·";
+          characters.nbsp = "⍽";
+          characters.nnbsp = "␣";
+          characters.tab = "→";
+          characters.newline = "⏎";
+          characters.tabpad = " "; # Tabs will look like "→   " (depending on tab width)
         };
 
         file-picker = {
@@ -218,6 +239,10 @@
           command = "ltex-ls";
         };
 
+        typos-lsp = {
+          command = "typos-lsp";
+        };
+
         typescript-language-server = {
           command = "typescript-language-server";
           args = [ "--stdio" ];
@@ -326,6 +351,18 @@
           language-id = "protobuf";
           command = "protols";
         };
+
+        golangci-lint--langserver = {
+          command = "golangci-lint-langserver";
+          config.command = [
+            "golangci-lint"
+            "run"
+            "--output.json.path"
+            "stdout"
+            "--show-stats=false"
+            "--issues-exit-code=1"
+          ];
+        };
       };
 
       language = [
@@ -384,16 +421,21 @@
             unit = "  ";
           };
           formatter = {
-            command = "typstfmt";
+            command = "typstyle";
             args = [
-              "/dev/stdin"
-              "-o"
-              "/dev/stdout"
+              "--wrap-text"
             ];
+            # command = "typstfmt";
+            # args = [
+            #   "/dev/stdin"
+            #   "-o"
+            #   "/dev/stdout"
+            # ];
           };
           language-servers = [
             "typst"
             # "ltex"
+            "typos-lsp"
           ];
         }
         {
@@ -567,6 +609,17 @@
               "-"
             ];
           };
+        }
+        {
+          name = "go";
+          auto-format = true;
+          formatter = {
+            command = "goimports";
+          };
+          language-servers = [
+            "gopls"
+            "golangci-lint-langserver"
+          ];
         }
       ];
     };
