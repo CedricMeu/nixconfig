@@ -1,9 +1,7 @@
-{ config, ... }:
+{ home-manager, ... }:
 {
-  home.file."${config.home.homeDirectory}/.npmrc" = {
-    text = ''
-      prefix = ''${HOME}/.cache/npm
-      color=true
-    '';
-  };
+  home.activation.SETUP_NPMRC = home-manager.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    grep -qxF 'prefix = ''${HOME}/.cache/npm' ''${HOME}/.npmrc || echo 'prefix = ''${HOME}/.cache/npm' >> ''${HOME}/.npmrc
+    grep -qxF 'color=true' ''${HOME}/.npmrc || echo 'color=true' >> ''${HOME}/.npmrc
+  '';
 }
