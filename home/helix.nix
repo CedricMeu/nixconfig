@@ -444,6 +444,7 @@
           language-servers = [
             "texlab"
             "ltex"
+            "typos-lsp"
           ];
         }
         {
@@ -460,6 +461,7 @@
           language-servers = [
             "marksman"
             "ltex"
+            "typos-lsp"
           ];
         }
         {
@@ -495,6 +497,7 @@
               name = "efm-lsp-prettier";
               only-features = [ "format" ];
             }
+            "typos-lsp"
           ];
         }
         {
@@ -512,6 +515,7 @@
               name = "efm-lsp-prettier";
               only-features = [ "format" ];
             }
+            "typos-lsp"
           ];
         }
         {
@@ -527,6 +531,7 @@
               name = "efm-lsp-prettier";
               only-features = [ "format" ];
             }
+            "typos-lsp"
           ];
         }
         {
@@ -544,6 +549,7 @@
               name = "efm-lsp-prettier";
               only-features = [ "format" ];
             }
+            "typos-lsp"
           ];
         }
         {
@@ -560,6 +566,7 @@
             "vscode-html-language-server"
             "emmet-ls"
             "tailwindcss-html"
+            "typos-lsp"
           ];
         }
         {
@@ -596,6 +603,7 @@
           file-types = [ "proto" ];
           language-servers = [
             "bufls"
+            "typos-lsp"
             # "pbkit"
             # "protols"
           ];
@@ -619,6 +627,7 @@
           language-servers = [
             "gopls"
             "golangci-lint-langserver"
+            "typos-lsp"
           ];
         }
       ];

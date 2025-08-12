@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     # CLI tools
     git
+    git-filter-repo
     gitui
     gh
     zellij
@@ -14,6 +15,8 @@
     gotools
 
     # Misc
+    comma
+
     mods
     typst
     carapace
