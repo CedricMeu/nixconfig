@@ -1,3 +1,5 @@
+ulimit -n -S 65536
+
 source ~/.cache/carapace/init.nu
 
 let carapace_completer = {|spans: list<string>|
@@ -32,11 +34,12 @@ let external_completer = {|spans|
   }
 
   match $spans.0 {
-    # # carapace completions are incorrect for nu
+    # carapace completions are incorrect for nu
     nu => $fish_completer
-    # # fish completes commits and branch names in a nicer way
+    # fish completes commits and branch names in a nicer way
     git => $fish_completer
-    __zoxide_z | __zoxide_zi => $zoxide_completer
+    # Zoxide needs it's own completer too
+    __zoxide_z | __zoxide_zi | z | zi => $zoxide_completer
     _ => $carapace_completer
     # _ => $fish_completer
   } | do $in $spans
@@ -109,9 +112,12 @@ $env.config.color_config = {
   shape_raw_string: light_purple
 }
 
-$env.config.completions.external = {
-  enable: true
-  completer: $external_completer
+$env.config.completions = {
+  algorithm: 'fuzzy'
+  external: {
+    enable: true
+    completer: $external_completer
+  }
 }
 
 $env.config.show_banner = false

@@ -3,8 +3,6 @@
   environment.systemPackages = with pkgs; [
     # CLI tools
     git
-    git-filter-repo
-    gitui
     gh
     zellij
     eza
@@ -12,18 +10,14 @@
 
     zulu23
 
-    gotools
-
     # Misc
     comma
-
-    mods
-    typst
     carapace
     wget
 
-    coq_8_20
-    coqPackages_8_20.vscoq-language-server
+    # coq_8_20
+    # coqPackages_8_20.vscoq-language-server
+    delve
 
     (pkgs.google-cloud-sdk.withExtraComponents [
       pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
@@ -42,6 +36,7 @@
 
     taps = [
       "homebrew/services"
+      "nikitabobko/tap"
     ];
 
     brews = [
@@ -51,7 +46,6 @@
 
     casks = [
       "raycast"
-      "rectangle"
       "logi-options+"
 
       "ghostty"
@@ -59,7 +53,7 @@
       "android-studio"
 
       "messenger"
-      "discord"
+      # "discord"
       "slack"
 
       "google-chrome"
@@ -67,12 +61,12 @@
 
       "docker-desktop"
 
-      "cloudflare-warp"
+      # "cloudflare-warp"
       "tailscale-app"
 
       "microsoft-teams"
+      "microsoft-powerpoint"
 
-      "eclipse-rcp"
       "intellij-idea-ce"
       "tableplus"
       "zed"
@@ -82,10 +76,12 @@
       "minecraft"
 
       "affine"
-      "lm-studio"
+      # "lm-studio"
 
-      "darktable"
-      "rawtherapee"
+      # "darktable"
+      # "rawtherapee"
+
+      "aerospace"
     ];
 
     masApps = {

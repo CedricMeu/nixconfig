@@ -82,6 +82,7 @@
         ];
 
         lsp = {
+          inlay-hints-length-limit = 20;
           display-inlay-hints = true;
           display-messages = true;
         };

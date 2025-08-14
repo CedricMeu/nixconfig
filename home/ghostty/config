@@ -1,4 +1,4 @@
-theme = ayu_light
+theme = Ayu Light
 font-family = "CaskaydiaCove Nerd Font Mono"
 font-size = 14
 command = "ZELLIJ_PATH -l welcome"
