@@ -35,8 +35,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # I'ts creating problems atm.
     helix = {
-      url = "github:CedricMeu/helix/better-bufferline";
+      url = "github:cedricmeu/helix/better-bufferline";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -83,7 +84,7 @@
             {
               help = "Switch to new configuration";
               name = "switch";
-              command = "sudo darwin-rebuild switch --flake .";
+              command = "darwin-rebuild switch --flake .";
             }
             {
               help = "Build new configuration";

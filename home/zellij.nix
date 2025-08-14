@@ -55,6 +55,14 @@
             NewPane = "down";
             SwitchToMode = "locked";
           };
+          "bind \"r\"" = {
+            NewPane = "right";
+            SwitchToMode = "locked";
+          };
+          "bind \"w\"" = {
+            ToggleFloatingPanes = [ ];
+            SwitchToMode = "locked";
+          };
           "bind \"e\"" = {
             TogglePaneEmbedOrFloating = [ ];
             SwitchToMode = "locked";
@@ -82,14 +90,6 @@
           "bind \"p\"" = {
             SwitchToMode = "normal";
           };
-          "bind \"r\"" = {
-            NewPane = "right";
-            SwitchToMode = "locked";
-          };
-          "bind \"w\"" = {
-            ToggleFloatingPanes = [ ];
-            SwitchToMode = "locked";
-          };
           "bind \"x\"" = {
             CloseFocus = [ ];
             SwitchToMode = "locked";
@@ -100,6 +100,9 @@
           };
           "bind \"tab\"" = {
             SwitchFocus = [ ];
+          };
+          "bind \"i\"" = {
+            TogglePanePinned = [ ];
           };
         };
         tab = {
@@ -411,9 +414,6 @@
           "bind \"Alt h\"" = {
             MoveFocusOrTab = "left";
           };
-          "bind \"Alt i\"" = {
-            MoveTab = "left";
-          };
           "bind \"Alt j\"" = {
             MoveFocus = "down";
           };
@@ -422,12 +422,6 @@
           };
           "bind \"Alt l\"" = {
             MoveFocusOrTab = "right";
-          };
-          "bind \"Alt n\"" = {
-            NewPane = [ ];
-          };
-          "bind \"Alt o\"" = {
-            MoveTab = "right";
           };
         };
         "shared_except \"locked\" \"renametab\" \"renamepane\"" = {

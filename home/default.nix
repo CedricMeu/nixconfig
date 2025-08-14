@@ -3,16 +3,17 @@
 {
   # import sub modules
   imports = [
-    ./shell.nix
-    ./nushell/nushell.nix
-    ./zellij.nix
+    ./aerospace.nix
     ./core.nix
-    ./git.nix
-    ./starship.nix
-    ./helix.nix
-    ./vscode.nix
     ./ghostty/ghostty.nix
+    ./git.nix
+    ./helix.nix
     ./npm.nix
+    ./nushell/nushell.nix
+    ./shell.nix
+    ./starship.nix
+    ./vscode.nix
+    ./zellij.nix
   ];
 
   # Home Manager needs a bit of information about you and the
