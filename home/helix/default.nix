@@ -1,5 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
+let
+  go_injections_file = builtins.readFile ./go/injections.scm;
+in
 {
+  home.file."${config.xdg.configHome}/helix/runtime/queries/go/injections.scm" = {
+    text = go_injections_file;
+  };
+
   programs.helix = {
     enable = true;
 
@@ -49,6 +56,8 @@
 
       intelephense
 
+      rust-analyzer
+
       # formatters
       black
       dprint
@@ -56,6 +65,7 @@
       nixfmt-rfc-style
       python312Packages.sqlparse
       gotools # For goimports
+      rustfmt
 
       # DAPs
       delve
@@ -300,7 +310,10 @@
             experimental.useFlatConfig = true;
             format.enable = false;
             nodePath = "";
-            codeActionsOnSave.mode = "all";
+            codeActionsOnSave = {
+              enable = true;
+              mode = "all";
+            };
             codeAction = {
               disableRuleComment = {
                 enable = true;
@@ -353,7 +366,7 @@
           command = "protols";
         };
 
-        golangci-lint--langserver = {
+        golangci-lint-langserver = {
           command = "golangci-lint-langserver";
           config.command = [
             "golangci-lint"
@@ -363,6 +376,11 @@
             "--show-stats=false"
             "--issues-exit-code=1"
           ];
+        };
+
+        rust-analyzer = {
+          command = "rust-analyzer";
+          config.cargo.features = "all";
         };
       };
 
@@ -394,6 +412,7 @@
         {
           name = "rust";
           auto-format = true;
+          formatter.command = "rustfmt";
           language-servers = [ "rust-analyzer" ];
         }
         {

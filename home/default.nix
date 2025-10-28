@@ -5,11 +5,11 @@
   imports = [
     ./aerospace.nix
     ./core.nix
-    ./ghostty/ghostty.nix
+    ./ghostty
     ./git.nix
-    ./helix.nix
+    ./helix
     ./npm.nix
-    ./nushell/nushell.nix
+    ./nushell
     ./shell.nix
     ./starship.nix
     ./vscode.nix
