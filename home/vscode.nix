@@ -43,6 +43,7 @@
         "workbench.iconTheme" = "ayu";
 
         "files.autoSave" = "afterDelay";
+        "files.insertFinalNewline" = true;
 
         "terminal.integrated.fontFamily" =
           "CaskaydiaCove Nerd Font Mono, Monoid Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace";

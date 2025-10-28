@@ -9,6 +9,7 @@
     edir
 
     zulu23
+    protobuf
 
     # Misc
     comma

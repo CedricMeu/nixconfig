@@ -58,13 +58,18 @@
     };
 
     delta = {
-      enable = true;
+      enable = false;
       options = {
-        features = "side-by-side";
+        # features = "side-by-side";
         navigate = true;
         light = false;
         syntax-theme = "catppuccin";
       };
+    };
+
+    difftastic = {
+      enable = true;
+      enableAsDifftool = true;
     };
 
     aliases = {
@@ -81,7 +86,7 @@
       cam = "commit --amend --message";
       cr = "commit --reuse-message=ORIGN_HEAD";
       r = "rebase --update-refs -i";
-      diff = "diff|delta"; # A hack to make mouse input work on git diff with delta
+      # diff = "diff|delta"; # A hack to make mouse input work on git diff with delta
       dc = "diff --cached";
     };
   };
