@@ -304,21 +304,28 @@ in
           command = "vscode-eslint-language-server";
           args = [ "--stdio" ];
           config = {
-            enable = true;
-            run = "onType";
-            useFlatConfig = true;
-            experimental.useFlatConfig = true;
-            format.enable = false;
             nodePath = "";
-            codeActionsOnSave = {
-              enable = true;
-              mode = "all";
-            };
+            quiet = false;
+            rulesCustomizations = [ ];
+            run = "onType";
+            validate = "on";
             codeAction = {
               disableRuleComment = {
                 enable = true;
                 location = "separateLine";
               };
+              showDocumentation = {
+                enable = true;
+              };
+            };
+            experimental.useFlatConfig = true;
+            problems = {
+              shortenToSingleLine = false;
+            };
+            workingDirectory.mode = "auto";
+            codeActionsOnSave = {
+              enable = true;
+              mode = "all";
             };
           };
         };
@@ -506,6 +513,10 @@ in
         }
         {
           name = "typescript";
+          roots = [
+            "package.json"
+            "tsconfig.json"
+          ];
           auto-format = true;
           language-servers = [
             {
@@ -522,6 +533,10 @@ in
         }
         {
           name = "tsx";
+          roots = [
+            "package.json"
+            "tsconfig.json"
+          ];
           auto-format = true;
           language-servers = [
             {
@@ -540,6 +555,10 @@ in
         }
         {
           name = "javascript";
+          roots = [
+            "package.json"
+            "tsconfig.json"
+          ];
           auto-format = true;
           language-servers = [
             {
@@ -556,6 +575,10 @@ in
         }
         {
           name = "jsx";
+          roots = [
+            "package.json"
+            "tsconfig.json"
+          ];
           auto-format = true;
           language-servers = [
             {

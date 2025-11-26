@@ -7,15 +7,20 @@ let carapace_completer = {|spans: list<string>|
   | from json
   | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
 }
+
 let fish_completer = {|spans|
-  fish --command $'complete "--do-complete=($spans | str join " ")"'
+  fish --command $"complete '--do-complete=($spans | str replace --all "'" "\\'" | str join ' ')'"
   | from tsv --flexible --noheaders --no-infer
   | rename value description
-  | update value {
-    if ($in | path exists) {$'"($in | str replace "\"" "\\\"" )"'} else {$in}
+  | update value {|row|
+    let value = $row.value
+    let need_quote = ['\' ',' '[' ']' '(' ')' ' ' '\t' "'" '"' "`"] | any {$in in $value}
+    if ($need_quote and ($value | path exists)) {
+      let expanded_path = if ($value starts-with ~) {$value | path expand --no-symlink} else {$value}
+      $'"($expanded_path | str replace --all "\"" "\\\"")"'
+    } else {$value}
   }
 }
-
 let zoxide_completer = {|spans|
   $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
 }
@@ -41,7 +46,6 @@ let external_completer = {|spans|
     # Zoxide needs it's own completer too
     __zoxide_z | __zoxide_zi | z | zi => $zoxide_completer
     _ => $carapace_completer
-    # _ => $fish_completer
   } | do $in $spans
 }
 
