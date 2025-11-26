@@ -8,7 +8,7 @@
     eza
     edir
 
-    zulu23
+    zulu
     protobuf
 
     # Misc
@@ -46,7 +46,7 @@
     ];
 
     casks = [
-      "raycast"
+      # "raycast"
       "logi-options+"
 
       "ghostty"
@@ -83,6 +83,7 @@
       # "rawtherapee"
 
       "aerospace"
+      "affinity"
     ];
 
     masApps = {

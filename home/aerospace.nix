@@ -1,8 +1,9 @@
 {
   programs.aerospace = {
     enable = true;
+    launchd.enable = true;
 
-    userSettings = {
+    settings = {
       # You can use it to add commands that run after AeroSpace startup.
       # Available commands : https://nikitabobko.github.io/AeroSpace/commands
       after-startup-command = [ ];
