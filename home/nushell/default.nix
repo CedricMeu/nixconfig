@@ -11,6 +11,8 @@ in
 {
   # Abusing fish for it's completions
   programs.fish.enable = true;
+  # Carapace for completions
+  programs.carapace.enable = true;
 
   programs.nushell = {
     enable = true;
@@ -36,9 +38,6 @@ in
           ]
           osConfig.environment.systemPath
       }"
-
-      mkdir ~/.cache/carapace
-      carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
     '';
   };
 }
