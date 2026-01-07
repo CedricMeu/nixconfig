@@ -13,7 +13,6 @@
 
     # Misc
     comma
-    carapace
     wget
 
     # coq_8_20

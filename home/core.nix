@@ -13,7 +13,7 @@
     # utils
     ripgrep # recursively searches directories for a regex pattern
     jq # A lightweight and flexible command-line JSON processor
-    yq-go # yaml processer https://github.com/mikefarah/yq
+    yq-go # yaml processor https://github.com/mikefarah/yq
     fzf # A command-line fuzzy finder
 
     aria2 # A lightweight multi-protocol & multi-source command-line download utility
@@ -35,13 +35,4 @@
     # productivity
     glow # markdown previewer in terminal
   ];
-
-  programs = {
-    # skim provides a single executable: sk.
-    # Basically anywhere you would want to use grep, try sk instead.
-    skim = {
-      enable = true;
-      enableBashIntegration = true;
-    };
-  };
 }

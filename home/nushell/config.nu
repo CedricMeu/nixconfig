@@ -1,5 +1,7 @@
 ulimit -n -S 65536
 
+mkdir ~/.cache/carapace
+carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 source ~/.cache/carapace/init.nu
 
 let carapace_completer = {|spans: list<string>|

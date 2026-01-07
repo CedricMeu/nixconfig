@@ -5,6 +5,7 @@
   imports = [
     ./aerospace.nix
     ./core.nix
+    ./direnv.nix
     ./ghostty
     ./git.nix
     ./helix
@@ -14,6 +15,7 @@
     ./starship.nix
     ./vscode.nix
     ./zellij.nix
+    ./zsh.nix
   ];
 
   # Home Manager needs a bit of information about you and the
