@@ -35,9 +35,8 @@ in
     })
   ];
 
+  # Manage the nix installation our selves.
   nix.enable = false;
-
-  nix.package = pkgs.nix;
 
   # do garbage collection weekly to keep disk usage low
   nix.gc = {
@@ -46,9 +45,6 @@ in
   };
 
   nix.settings = {
-    # Disable auto-optimise-store because of this issue:
-    #   https://github.com/NixOS/nix/issues/7273
-    # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
-    auto-optimise-store = false;
+    auto-optimise-store = true;
   };
 }

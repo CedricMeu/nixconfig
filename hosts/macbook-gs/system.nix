@@ -10,6 +10,4 @@
 
     MATCH_KEY_JSON = "/Users/${username}/.config/guardsquare/fastlane.json";
   };
-
-  environment.systemPath = [ ];
 }

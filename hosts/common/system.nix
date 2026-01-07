@@ -1,12 +1,5 @@
 { pkgs, ... }:
 {
-  programs.zsh.enable = true;
-
-  environment.shells = [
-    pkgs.zsh
-    pkgs.nushell
-  ];
-
   environment.systemPath = [
     "$HOME/.cargo/bin"
   ];
