@@ -2,7 +2,6 @@
   pkgs,
   lib,
   helix,
-  atuin,
   nix-vscode-extensions,
   nixpkgs-vsc-lang-servers,
   ...
@@ -30,7 +29,6 @@ in
 
     (final: prev: {
       helix = helix.packages.${final.system}.default;
-      # atuin = atuin.packages.${final.system}.default;
       vscode-langservers-extracted = pkgs-vsc-lang-servers.vscode-langservers-extracted;
     })
   ];

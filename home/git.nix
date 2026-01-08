@@ -85,7 +85,7 @@
           cm = "commit -m";
           ca = "commit --amend";
           cam = "commit --amend --message";
-          cr = "commit --reuse-message=ORIGN_HEAD";
+          cr = "commit --reuse-message=ORIGIN_HEAD";
           r = "rebase --update-refs -i";
           # diff = "diff|delta"; # A hack to make mouse input work on git diff with delta
           dc = "diff --cached";

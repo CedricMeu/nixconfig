@@ -75,9 +75,14 @@
         };
       in
       {
-
-        devShell = pkgs.devshell.mkShell {
+        formatter = pkgs.nixfmt-rfc-style;
+        devShells.default = pkgs.devshell.mkShell {
           name = "cfg";
+
+          packages = with pkgs; [
+            nil
+            nixd
+          ];
 
           commands = [
             {
@@ -110,8 +115,6 @@
             }
           ];
         };
-
-        formatter = pkgs.nixpkgs-fmt;
       }
     )
     // {

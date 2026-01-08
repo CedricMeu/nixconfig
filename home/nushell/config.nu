@@ -118,15 +118,18 @@ $env.config.color_config = {
   shape_raw_string: light_purple
 }
 
-$env.config.completions = {
+$env.config = {
+  show_banner: false
+  buffer_editor: ( $env.EDITOR | split row ' ' )
+  completions: {
   algorithm: 'fuzzy'
-  external: {
-    enable: true
-    completer: $external_completer
+    external: {
+      enable: true
+      completer: $external_completer
+    }
   }
 }
 
-$env.config.show_banner = false
 
 use std/dirs *
 
