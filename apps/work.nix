@@ -9,7 +9,6 @@
     edir
 
     zulu
-    protobuf
 
     # Misc
     comma
@@ -45,7 +44,6 @@
     ];
 
     casks = [
-      # "raycast"
       "logi-options+"
 
       "ghostty"
@@ -53,11 +51,9 @@
       "android-studio"
 
       "messenger"
-      # "discord"
       "slack"
 
       "google-chrome"
-      "google-drive"
 
       "docker-desktop"
 
@@ -72,16 +68,12 @@
       "zed"
 
       "zotero"
+      "affine"
 
       "minecraft"
 
-      "affine"
-      # "lm-studio"
-
-      # "darktable"
-      # "rawtherapee"
-
       "aerospace"
+
       "affinity"
     ];
 

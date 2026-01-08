@@ -16,14 +16,16 @@ in
 
   programs.nushell = {
     enable = true;
+
+    # Use extraConfig to not override home-manager generated config
     extraConfig = config_file;
 
+    # Use extraEnv to not override home-manager generated env
     extraEnv = lib.optionalString (osConfig ? environment) ''
       # Copy over env variables from nix definitions
-      load-env ${builtins.toJSON osConfig.environment.variables}
-
-      # Fix editor
-      $env.EDITOR = "${pkgs.helix}/bin/hx"
+      let nixEnv =  ${builtins.toJSON osConfig.environment.variables} | merge { EDITOR: "${pkgs.helix}/bin/hx", VISUAL: "${pkgs.helix}/bin/hx" }
+      # Use all nixEnv settings, allowing overrides by the invoking shell/program
+      $nixEnv | merge deep $env | select ...($nixEnv | columns) | load-env
 
       # Fix system path
       $env.PATH = "${

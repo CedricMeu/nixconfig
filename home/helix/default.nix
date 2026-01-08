@@ -51,7 +51,7 @@ in
       golangci-lint-langserver
 
       docker-compose-language-service
-      dockerfile-language-server-nodejs
+      dockerfile-language-server
       yaml-language-server
 
       intelephense
