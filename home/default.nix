@@ -11,6 +11,7 @@
     ./helix
     ./npm.nix
     ./nushell
+    ./sapling.nix
     ./shell.nix
     ./starship.nix
     ./vscode.nix

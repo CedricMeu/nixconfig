@@ -5,14 +5,17 @@
 
     package = pkgs.vscodium;
 
-    profiles.default = {
-      enableExtensionUpdateCheck = false;
+    mutableExtensionsDir = true;
 
-      enableUpdateCheck = false;
+    profiles.default = {
+      enableExtensionUpdateCheck = true;
+
+      enableUpdateCheck = true;
 
       extensions =
         with pkgs.vscode-extensions;
         [
+          github.copilot-chat
           visualstudioexptteam.vscodeintellicode
           visualstudioexptteam.intellicode-api-usage-examples
 
@@ -67,6 +70,8 @@
         "terminal.integrated.defaultProfile.osx" = "nu";
 
         "vscoq.path" = "${pkgs.coqPackages_8_20.vscoq-language-server}/bin/vscoqtop";
+
+        "chat.disableAIFeatures" = false;
       };
     };
   };
