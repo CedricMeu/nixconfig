@@ -2,6 +2,7 @@
 {
   environment.systemPath = [
     "/opt/homebrew/bin"
+    "/Users/cedric.meukens/.lmstudio/bin"
   ];
 
   system = {

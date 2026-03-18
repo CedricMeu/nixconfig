@@ -21,6 +21,8 @@
     (pkgs.google-cloud-sdk.withExtraComponents [
       pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
     ])
+
+    sapling
   ];
 
   homebrew = {
@@ -54,6 +56,7 @@
       "slack"
 
       "google-chrome"
+      "firefox"
 
       "docker-desktop"
 
@@ -75,6 +78,8 @@
       "aerospace"
 
       "affinity"
+
+      "lm-studio"
     ];
 
     masApps = {
