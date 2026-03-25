@@ -2,6 +2,7 @@
 {
   environment.systemPath = [
     "$HOME/.cargo/bin"
+    "$HOME/.local/bin"
   ];
 
   # Fonts
