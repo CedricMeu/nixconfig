@@ -4,7 +4,7 @@
     sapling = {
       enable = true;
 
-      userName = "CedricMeu";
+      userName = "cedric.meukens";
       userEmail = useremail;
 
       extraConfig = {

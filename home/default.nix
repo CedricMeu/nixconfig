@@ -9,6 +9,7 @@
     ./ghostty
     ./git.nix
     ./helix
+    ./jujutsu.nix
     ./npm.nix
     ./nushell
     ./sapling.nix

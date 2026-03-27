@@ -23,6 +23,7 @@
     ])
 
     sapling
+    jujutsu
   ];
 
   homebrew = {
