@@ -55,6 +55,9 @@
         # Helix
         ".helix/"
 
+        # Zed
+        ".zed/"
+
         # direnv
         ".direnv"
         ".envrc"
