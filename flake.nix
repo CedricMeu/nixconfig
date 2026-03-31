@@ -35,12 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # I'ts creating problems atm.
-    helix = {
-      url = "github:cedricmeu/helix/better-bufferline";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     atuin = {
       url = "github:atuinsh/atuin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,6 +43,11 @@
 
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    jj-starship = {
+      url = "github:dmmulroy/jj-starship";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

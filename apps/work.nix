@@ -2,28 +2,26 @@
 {
   environment.systemPackages = with pkgs; [
     # CLI tools
-    git
-    gh
-    zellij
-    eza
     edir
+    ripgrep
 
-    zulu
+    # VCSs
+    git
+    sapling
+    jujutsu
 
     # Misc
     comma
     wget
+    jj-starship
 
-    # coq_8_20
-    # coqPackages_8_20.vscoq-language-server
-    delve
-
+    # Some google stuff
     (pkgs.google-cloud-sdk.withExtraComponents [
       pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
     ])
 
-    sapling
-    jujutsu
+    # A java runtime
+    zulu
   ];
 
   homebrew = {
@@ -49,11 +47,9 @@
     casks = [
       "logi-options+"
 
-      "ghostty"
       "vscodium"
       "android-studio"
 
-      "messenger"
       "slack"
 
       "google-chrome"
@@ -61,7 +57,6 @@
 
       "docker-desktop"
 
-      # "cloudflare-warp"
       "tailscale-app"
 
       "microsoft-teams"

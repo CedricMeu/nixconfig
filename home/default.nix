@@ -4,9 +4,7 @@
   # import sub modules
   imports = [
     ./aerospace.nix
-    ./core.nix
     ./direnv.nix
-    ./ghostty
     ./git.nix
     ./helix
     ./jujutsu.nix
@@ -16,7 +14,6 @@
     ./shell.nix
     ./starship.nix
     ./vscode.nix
-    ./zellij.nix
     ./zsh.nix
   ];
 

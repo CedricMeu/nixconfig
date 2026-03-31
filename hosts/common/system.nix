@@ -8,8 +8,6 @@
   # Fonts
   fonts = {
     packages = with pkgs; [
-      # packages = with pkgs; [
-      # icon fonts
       material-design-icons
       font-awesome
       nerd-fonts.fira-code

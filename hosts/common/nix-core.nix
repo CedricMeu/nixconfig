@@ -1,9 +1,9 @@
 {
   pkgs,
   lib,
-  helix,
   nix-vscode-extensions,
   nixpkgs-vsc-lang-servers,
+  jj-starship,
   ...
 }:
 let
@@ -26,11 +26,10 @@ in
 
   nixpkgs.overlays = [
     nix-vscode-extensions.overlays.default
-
     (final: prev: {
-      helix = helix.packages.${final.system}.default;
       vscode-langservers-extracted = pkgs-vsc-lang-servers.vscode-langservers-extracted;
     })
+    jj-starship.overlays.default
   ];
 
   # Manage the nix installation our selves.

@@ -2,45 +2,9 @@
 
 ## Configuration Structure
 
-```bash
- .
-├──  apps
-│   └──  work.nix
-├── 󱂵 home
-│   ├──  core.nix
-│   ├──  default.nix
-│   ├──  ghostty
-│   │   ├──  config
-│   │   └──  ghostty.nix
-│   ├──  git.nix
-│   ├──  helix.nix
-│   ├──  nushell
-│   │   ├──  config.nu
-│   │   └──  nushell.nix
-│   ├──  shell.nix
-│   ├──  starship.nix
-│   ├──  vscode.nix
-│   └──  zellij.nix
-├──  hosts
-│   ├──  common
-│   │   ├──  darwin
-│   │   │   ├──  configuration.nix
-│   │   │   ├──  default.nix
-│   │   │   └──  system.nix
-│   │   ├──  default.nix
-│   │   ├──  nix-core.nix
-│   │   └──  system.nix
-│   └──  macbook-gs
-│       ├──  default.nix
-│       └──  system.nix
-├──  flake.lock
-├──  flake.nix
-└── 󰂺 README.md
-```
-
 - `apps/` holds declarations for the apps to be installed.
-- `home/` holds home-manager configuration (dotfiles).
-- `hosts/` holds a configuration for each host. This configuration includes the `home/`, `hosts/common`, and `hosts/common/darwin` (if that host happens to be on macOS) modules.
+- `home/` holds home-manager configuration.
+- `hosts/` holds a configuration for each host.
 - `hosts/common/` holds common configuration for all hosts.
 - `hosts/common/darwin` holds common configuration for all macOS hosts.
 

@@ -12,8 +12,6 @@ in
 
     extraPackages = with pkgs; [
       # LPSs
-      nodePackages.bash-language-server
-
       marksman
 
       pyright
@@ -28,7 +26,7 @@ in
 
       tinymist
 
-      nodePackages.typescript-language-server
+      typescript-language-server
 
       vscode-langservers-extracted
 
@@ -37,9 +35,9 @@ in
       typos-lsp
 
       efm-langserver
-      nodePackages.svelte-language-server
-      nodePackages.prettier
-      nodePackages.vscode-langservers-extracted
+      svelte-language-server
+      prettier
+      vscode-langservers-extracted
       emmet-ls
       tailwindcss-language-server
 
